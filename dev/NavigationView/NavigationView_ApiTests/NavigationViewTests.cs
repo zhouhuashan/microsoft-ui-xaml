@@ -27,6 +27,8 @@ using NavigationViewItem = Microsoft.UI.Xaml.Controls.NavigationViewItem;
 using NavigationViewBackButtonVisible = Microsoft.UI.Xaml.Controls.NavigationViewBackButtonVisible;
 #endif
 
+using VisualTreeDumper = MUXControls.TestAppUtils.VisualTreeDumper;
+
 namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
 {
     [TestClass]
@@ -54,6 +56,22 @@ namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
 
             IdleSynchronizer.Wait();
             return navView;
+        }
+
+        [TestMethod]
+        public void VerifyVisualTreeForNavView()
+        {
+            var navView = SetupNavigationView();
+            RunOnUIThread.Execute(() =>
+            {
+                MUXControlsTestApp.App.TestContentRoot = navView;
+            });
+            IdleSynchronizer.Wait();
+            RunOnUIThread.Execute(() =>
+            {
+
+                Log.Comment(VisualTreeDumper.DumpToXML(navView));
+            });
         }
 
         [TestMethod]
