@@ -367,12 +367,13 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests.Infra
                     }
 
                     Log.Comment("Invoking the back button...");
-                    FindElement.ById<Button>("__GoBackInvoker").InvokeAndWait();
+                    FindElement.ById<Button>("__GoBackInvoker").InvokeAndWait(TimeSpan.FromSeconds(10));
                     Log.Comment("Invoke successful.");
 
                     // We're now exiting the page we were previously on, so everything has changed.  As such, we should clear our
                     // element cache, in order to ensure that we don't accidentally retrieve any stale UI objects.
                     ElementCache.Clear();
+                    Thread.Sleep(2000);
 
                     // Successfully found and invoked the Back button. Exit the retry loop.
                     break;
