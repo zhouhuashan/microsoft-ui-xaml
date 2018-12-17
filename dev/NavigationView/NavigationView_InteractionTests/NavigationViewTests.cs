@@ -1483,8 +1483,8 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             }
         }
 
-        [TestMethod]
-        [TestProperty("NavViewTestSuite", "B")]
+        //[TestMethod]
+        //[TestProperty("NavViewTestSuite", "B")]
         public void SuppressSelectionItemInvokeTest()
         {
             using (IDisposable page1 = new TestSetupHelper("NavigationView Tests"),
