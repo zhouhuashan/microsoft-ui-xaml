@@ -2647,8 +2647,8 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             }
         }
 
-        [TestMethod]
-        [TestProperty("NavViewTestSuite", "C")]
+        //[TestMethod]
+        //[TestProperty("NavViewTestSuite", "C")]
         public void KeyboardFocusToolTipTest() // Verify tooltips appear when Keyboard focused
         {
             using (IDisposable page1 = new TestSetupHelper("NavigationView Tests"),
