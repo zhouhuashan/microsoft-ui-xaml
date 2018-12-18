@@ -3,7 +3,10 @@ robocopy %HELIX_CORRELATION_PAYLOAD% . /s
 dir /b /s
 powershell -ExecutionPolicy Bypass Get-Process
 powershell -ExecutionPolicy Bypass Get-AppXPackage
-te MUXControls.Test.dll MUXControlsTestApp.appx /enablewttlogging /unicodeOutput:false /testtimeout:0:10 /name:*MUXControls.InteractionTests.SplitButtonTests.ToggleTest
+
+te MUXControls.Test.dll MUXControlsTestApp.appx /unicodeOutput:false /testtimeout:0:10 /name:*MUXControls.InteractionTests.SplitButtonTests.ToggleTest
+
+
 te MUXControls.Test.dll MUXControlsTestApp.appx /enablewttlogging /unicodeOutput:false /testtimeout:0:10 %*
 type te.wtl
 cd scripts
