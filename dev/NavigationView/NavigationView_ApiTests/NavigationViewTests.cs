@@ -29,10 +29,11 @@ using NavigationViewBackButtonVisible = Microsoft.UI.Xaml.Controls.NavigationVie
 
 using VisualTreeDumper = MUXControls.TestAppUtils.VisualTreeDumper;
 
+
 namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
 {
     [TestClass]
-    public class NavigationViewTests
+    public class NavigationViewTests: VisualTreeTestBase
     {
         private NavigationView SetupNavigationView(NavigationViewPaneDisplayMode paneDisplayMode = NavigationViewPaneDisplayMode.Auto)
         {
