@@ -1419,7 +1419,7 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             }
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void TreeViewNoReorderIntoChildren_NodeMode()
         {
             TreeViewNoReorderIntoChildren();
