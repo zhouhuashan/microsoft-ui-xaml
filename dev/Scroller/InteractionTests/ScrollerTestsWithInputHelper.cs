@@ -357,8 +357,8 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             }
         }
 
-        [TestMethod]
-        [TestProperty("Description", "Pinch a Rectangle in a Scroller.")]
+        //[TestMethod]
+        //[TestProperty("Description", "Pinch a Rectangle in a Scroller.")]
         public void PinchRectangle()
         {
             if (PlatformConfiguration.IsDevice(DeviceType.Phone))

@@ -2,7 +2,7 @@ set
 robocopy %HELIX_CORRELATION_PAYLOAD% . /s
 dir /b /s
 powershell -ExecutionPolicy Bypass Get-Process
-powershell -ExecutionPolicy Bypass Get-AppXPackage
+powershell -ExecutionPolicy Bypass Get-AppXPackage -AllUsers
 
 Listdlls.exe /accepteula
 

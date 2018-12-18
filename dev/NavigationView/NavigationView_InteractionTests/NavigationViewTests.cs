@@ -3505,8 +3505,8 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             }
         }
 
-        [TestMethod]
-        [TestProperty("NavViewTestSuite", "D")]
+        //[TestMethod]
+        //[TestProperty("NavViewTestSuite", "D")]
         public void EnsureDynamicSizeForPaneHeaderFooterAndCustomContent()
         {
             using (IDisposable page1 = new TestSetupHelper("NavigationView Tests"),

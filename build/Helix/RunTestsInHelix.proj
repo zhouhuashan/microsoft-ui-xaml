@@ -3,7 +3,7 @@
     <HelixSource>pr/winui/$(BUILD_SOURCEBRANCH)/</HelixSource>
     <HelixType>test/product/</HelixType>
     <!-- Windows.10.Amd64.ClientRS2.Open-->
-    <HelixTargetQueues>Windows.10.Amd64.ClientRS2;Windows.10.Amd64.ClientRS3;Windows.10.Amd64.ClientRS3.DevEx.Open;Windows.10.Amd64.Open;Windows.10.Amd64.ClientRS3.VS2017.Open;Windows.10.Amd64.ClientRS4.Open;Windows.10.Amd64.ServerRS5.Open</HelixTargetQueues>
+    <HelixTargetQueues>Windows.10.Amd64.Open;Windows.10.Amd64.ClientRS2;Windows.10.Amd64.ClientRS3;Windows.10.Amd64.ClientRS3.DevEx.Open;Windows.10.Amd64.ClientRS3.VS2017.Open;Windows.10.Amd64.ClientRS4.Open;Windows.10.Amd64.ServerRS5.Open</HelixTargetQueues>
     <EnableXUnitReporter>true</EnableXUnitReporter>
     <EnableAzurePipelinesReporter>true</EnableAzurePipelinesReporter>
   </PropertyGroup>
@@ -38,10 +38,6 @@
     <HelixWorkItem Include="InteractionTests.PersonPictureTests">
       <Timeout>00:20:00</Timeout>
       <Command>call %HELIX_CORRELATION_PAYLOAD%\runtests.cmd /sessionTimeout:0:15 /name:Windows.UI.Xaml.Tests.MUXControls.InteractionTests.PersonPictureTests.*</Command>
-    </HelixWorkItem>
-    <HelixWorkItem Include="InteractionTests.TreeViewTests">
-      <Timeout>00:20:00</Timeout>
-      <Command>call %HELIX_CORRELATION_PAYLOAD%\runtests.cmd /sessionTimeout:0:15 /name:Windows.UI.Xaml.Tests.MUXControls.InteractionTests.TreeViewTests.*</Command>
     </HelixWorkItem>
     <HelixWorkItem Include="InteractionTests.AcrylicBrushTests">
       <Timeout>00:20:00</Timeout>
@@ -270,5 +266,16 @@
       <Timeout>00:20:00</Timeout>
       <Command>call %HELIX_CORRELATION_PAYLOAD%\runtests.cmd /sessionTimeout:0:15 /select:"(@Name='Windows.UI.Xaml.Tests.MUXControls.InteractionTests.NavigationViewTests.*' and @NavViewTestSuite='D')"</Command>
     </HelixWorkItem>
+
+
+    <HelixWorkItem Include="InteractionTests.TreeViewTests-A">
+      <Timeout>00:20:00</Timeout>
+      <Command>call %HELIX_CORRELATION_PAYLOAD%\runtests.cmd /sessionTimeout:0:15 /select:"(@Name='Windows.UI.Xaml.Tests.MUXControls.InteractionTests.TreeViewTests.*' and @TreeViewTestSuite='A')"</Command>
+    </HelixWorkItem>
+    <HelixWorkItem Include="InteractionTests.TreeViewTests-B">
+      <Timeout>00:20:00</Timeout>
+      <Command>call %HELIX_CORRELATION_PAYLOAD%\runtests.cmd /sessionTimeout:0:15 /select:"(@Name='Windows.UI.Xaml.Tests.MUXControls.InteractionTests.TreeViewTests.*' and @TreeViewTestSuite='B')"</Command>
+    </HelixWorkItem>
+
   </ItemGroup>
 </Project>
