@@ -6,6 +6,8 @@ powershell -ExecutionPolicy Bypass Get-AppXPackage
 
 Listdlls.exe /accepteula
 
+handle.exe AppxBlockMap.xml
+
 
 set retries=3
 :loop
