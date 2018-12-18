@@ -1,4 +1,4 @@
-$flavor = "Debug"
+$flavor = "Release"
 $platform = "x86"
 $payloadDir = "HelixPayload"
 
