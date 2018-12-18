@@ -3,7 +3,7 @@
     <HelixSource>pr/winui/$(BUILD_SOURCEBRANCH)/</HelixSource>
     <HelixType>test/product/</HelixType>
     <!-- Windows.10.Amd64.ClientRS2.Open-->
-    <HelixTargetQueues>Windows.10.Amd64.ClientRS2.Open;Windows.10.Amd64.Open;Windows.10.Amd64.ClientRS3.VS2017.Open;Windows.10.Amd64.ClientRS4.Open;Windows.10.Amd64.ServerRS5.Open;Windows.10.Amd64.ClientRS3.DevEx.Open;"Windows.10.Amd64.ClientRS3.ES.Open</HelixTargetQueues>
+    <HelixTargetQueues>Windows.10.Amd64.Open;Windows.10.Amd64.ClientRS3.VS2017.Open;Windows.10.Amd64.ClientRS4.Open;Windows.10.Amd64.ServerRS5.Open</HelixTargetQueues>
     <EnableXUnitReporter>true</EnableXUnitReporter>
     <EnableAzurePipelinesReporter>true</EnableAzurePipelinesReporter>
   </PropertyGroup>
