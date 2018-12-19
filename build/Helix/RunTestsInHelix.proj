@@ -11,6 +11,7 @@
     <HelixTargetQueues>Windows.10.Amd64.Open</HelixTargetQueues>
     <EnableXUnitReporter>true</EnableXUnitReporter>
     <EnableAzurePipelinesReporter>true</EnableAzurePipelinesReporter>
+    <Creator>kmahone</Creator>
   </PropertyGroup>
 
   <ItemGroup>
