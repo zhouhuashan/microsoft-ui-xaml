@@ -124,11 +124,9 @@ jobs:
     displayName: 'Run tests in Helix'
     env:
       SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-      Creator: kmahone
     inputs:
       command: custom
       projects: build\Helix\RunTestsInHelix.proj
       custom: msbuild
-      # arguments: '/p:HelixAccessToken=$(BotAccount-dotnet-github-anon-kaonashi-bot-helix-token) /p:HelixBuild=$(Build.BuildId)'
-      arguments: '/p:HelixBuild=$(Build.BuildId) /verbosity:detailed'
+      arguments: '/p:HelixBuild=$(Build.BuildId) /verbosity:detailed /p:Creator=kmahone'
       
