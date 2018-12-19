@@ -124,6 +124,7 @@ jobs:
     displayName: 'Run tests in Helix'
     env:
       SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+      Creator: kmahone
     inputs:
       command: custom
       projects: build\Helix\RunTestsInHelix.proj
