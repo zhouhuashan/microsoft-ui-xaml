@@ -15,16 +15,16 @@ jobs:
   strategy:
     maxParallel: 4
     matrix:
-      Build_Debug_x86:
+      Debug_x86:
         buildPlatform: 'x86'
         buildConfiguration: 'Debug'
-      Build_Release_x86:
+      Release_x86:
         buildPlatform: 'x86'
         buildConfiguration: 'Release'
-      Build_Release_x64:
+      Debug_x64:
         buildPlatform: 'x64'
         buildConfiguration: 'Debug'
-      Build_Release_x64:
+      Release_x64:
         buildPlatform: 'x64'
         buildConfiguration: 'Release'
 
@@ -90,16 +90,16 @@ jobs:
   strategy:
     maxParallel: 4
     matrix:
-      Test_Debug_x86:
+      Debug_x86:
         buildPlatform: 'x86'
         buildConfiguration: 'Debug'
-      Test_Release_x86:
+      Release_x86:
         buildPlatform: 'x86'
         buildConfiguration: 'Release'
-      Test_Release_x64:
+      Debug_x64:
         buildPlatform: 'x64'
         buildConfiguration: 'Debug'
-      Test_Release_x64:
+      Release_x64:
         buildPlatform: 'x64'
         buildConfiguration: 'Release'
   steps:
