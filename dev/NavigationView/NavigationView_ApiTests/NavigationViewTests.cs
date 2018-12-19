@@ -32,8 +32,29 @@ using VisualTreeDumper = MUXControls.TestAppUtils.VisualTreeDumper;
 
 namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
 {
+
     [TestClass]
-    public class NavigationViewTests: VisualTreeTestBase
+    public class NavigationViewVisualTreeTests: VisualTreeTestBase
+    {
+        [TestMethod]
+        public void VerifyVisualTreeForNavView()
+        {
+            var navView = SetupNavigationView();
+            RunOnUIThread.Execute(() =>
+            {
+                MUXControlsTestApp.App.TestContentRoot = navView;
+            });
+            IdleSynchronizer.Wait();
+            RunOnUIThread.Execute(() =>
+            {
+
+                VisualTreeCompare(navView, CompareType.Default);
+            });
+        }
+    }
+
+    [TestClass]
+    public class NavigationViewTests
     {
         private NavigationView SetupNavigationView(NavigationViewPaneDisplayMode paneDisplayMode = NavigationViewPaneDisplayMode.Auto)
         {
@@ -57,22 +78,6 @@ namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
 
             IdleSynchronizer.Wait();
             return navView;
-        }
-
-        [TestMethod]
-        public void VerifyVisualTreeForNavView()
-        {
-            var navView = SetupNavigationView();
-            RunOnUIThread.Execute(() =>
-            {
-                MUXControlsTestApp.App.TestContentRoot = navView;
-            });
-            IdleSynchronizer.Wait();
-            RunOnUIThread.Execute(() =>
-            {
-
-                Log.Comment(VisualTreeDumper.DumpToXML(navView));
-            });
         }
 
         [TestMethod]

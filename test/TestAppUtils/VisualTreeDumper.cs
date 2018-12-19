@@ -23,25 +23,32 @@ namespace MUXControls.TestAppUtils
 
         class Visitor : IVisitor
         {
-            StringBuilder sb = new StringBuilder();
-            int indent = 0;
+            private StringBuilder _sb;
+            private int _indent;
+
+            public Visitor()
+            {
+                _sb = new StringBuilder();
+                _sb.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
+                _indent = 0;
+            }
             public void EndVisitNode(DependencyObject obj)
             {
-                indent--;
-                AddPadding(indent);
-                sb.AppendLine(String.Format("</Element Type=\"{0}\">", obj.GetType().FullName));
+                _indent--;
+                AddPadding(_indent);
+                _sb.AppendLine("</Element>");
             }
 
             public void BeginVisitNode(DependencyObject obj)
             {
-                AddPadding(indent);
-                sb.AppendLine(String.Format("<Element Type=\"{0}\">", obj.GetType().FullName));
-                indent++;
+                AddPadding(_indent);
+                _sb.AppendLine(String.Format("<Element Type=\"{0}\">", obj.GetType().FullName));
+                _indent++;
             }
 
             public override String ToString()
             {
-                return sb.ToString();
+                return _sb.ToString();
             }
 
             public bool ShouldVisitNode(DependencyObject node)
@@ -65,8 +72,8 @@ namespace MUXControls.TestAppUtils
                 var v = PropertyValueToString(propertyName, value);
                 if (!IsKnownPropertyValue(propertyName, v))
                 {
-                    AddPadding(indent + 1);
-                    sb.AppendLine(String.Format("<Property Name=\"{0}\" Value=\"{1}\" />", propertyName, v));
+                    AddPadding(_indent + 1);
+                    _sb.AppendLine(String.Format("<Property Name=\"{0}\" Value=\"{1}\" />", propertyName, v));
                 }
             }
 
@@ -166,7 +173,7 @@ namespace MUXControls.TestAppUtils
 
             private void AddPadding(int numOfSpace)
             {
-                sb.Append("".PadRight(numOfSpace));
+                _sb.Append("".PadRight(numOfSpace));
             }
 
             private static string NULL = "[NULL]";
