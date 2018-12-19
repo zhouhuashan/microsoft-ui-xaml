@@ -1,4 +1,22 @@
-<Project Sdk="Microsoft.DotNet.Helix.Sdk" DefaultTargets="Test">
+<Project Sdk="Microsoft.DotNet.Helix.Sdk" DefaultTargets="Test" >
+
+  <Target Name="DumpHelixProps" BeforeTargets="Test">
+    <Message Text="HelixSource=$(HelixSource)" Importance="high" />
+    <Message Text="HelixType=$(HelixType)" Importance="high" />
+    <Message Text="HelixBuild=$(HelixBuild)" Importance="high" />
+    <Message Text="HelixTargetQueues=$(HelixTargetQueues)" Importance="high" />
+    <Message Text="HelixAccessToken=$(HelixAccessToken)" Importance="high" />
+    <Message Text="HelixPreCommands=$(HelixPreCommands)" Importance="high" />
+    <Message Text="HelixPostCommands=$(HelixPostCommands)" Importance="high" />
+    <Message Text="HelixCorrelationPayload=$(HelixCorrelationPayload)" Importance="high" />
+    <Message Text="IncludeDotNetCli=$(IncludeDotNetCli)" Importance="high" />
+    <Message Text="DotNetCliPackageType=$(DotNetCliPackageType)" Importance="high" />
+    <Message Text="DotNetCliVersion=$(DotNetCliVersion)" Importance="high" />
+    <Message Text="EnableXUnitReporter=$(EnableXUnitReporter)" Importance="high" />
+    <Message Text="WaitForWorkItemCompletion=$(WaitForWorkItemCompletion)" Importance="high" />
+    <Message Text="Creator=$(Creator)" Importance="high" />
+  </Target>
+
   <PropertyGroup>
     <HelixSource>pr/winui/$(BUILD_SOURCEBRANCH)/</HelixSource>
     <HelixType>test/product/</HelixType>
