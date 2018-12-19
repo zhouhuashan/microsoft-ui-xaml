@@ -5,6 +5,7 @@ using Windows.Storage;
 using System.IO;
 using MUXControls.TestAppUtils;
 using PlatformConfiguration = Common.PlatformConfiguration;
+using MUXControlsTestApp.Utilities;
 
 #if USING_TAEF
 using WEX.TestExecution;
@@ -28,28 +29,39 @@ namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
     {
         public TestContext TestContext { get; set; }
 
-        private async Task<string> GetMasterFileContentAsync(string filename)
+        private string GetMasterFileContent(string fileName)
         {
-            var uri = new Uri("ms-appx:///master/" + filename);
-            var file = await StorageFile.GetFileFromApplicationUriAsync(uri);
+            return GetMasterFileContentAsync(fileName).Result;
+        }
+
+        private async Task<string> GetMasterFileContentAsync(string fileName)
+        {
+            var uri = new Uri("ms-appx:///master/" + fileName);
             string content = "";
+
             try
             {
+                var file = await StorageFile.GetFileFromApplicationUriAsync(uri);
                 content = await FileIO.ReadTextAsync(file);
             }
             catch (FileNotFoundException)
             {
-                Verify.Fail("File not found: " + filename);
+                Verify.Fail("File not found: " + fileName);
             }
             return content;
         }
 
-        private async Task<bool> IsFilePresent(string filename)
+        private bool IsFilePresent(string fileName)
         {
-            var uri = new Uri("ms-appx:///master/" + filename);
-            var file = await StorageFile.GetFileFromApplicationUriAsync(uri);
+            return IsFilePresentAsync(fileName).Result;
+        }
+
+        private async Task<bool> IsFilePresentAsync(string fileName)
+        {
+            var uri = new Uri("ms-appx:///master/" + fileName);
             try
             {
+                var file = await StorageFile.GetFileFromApplicationUriAsync(uri);
                 await FileIO.ReadTextAsync(file);
                 return true;
             }
@@ -58,10 +70,25 @@ namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
                 return false;
             }
         }
+        private void LogTextContent()
+        {
+            Log.Comment("FullyQualifiedTestClassName:" + TestContext.FullyQualifiedTestClassName);
+            Log.Comment("TestName" + TestContext.TestName);
+#if USING_TAEF
+            Log.Comment(TestContext.TestRunResultsDirectory);
+            Log.Comment(TestContext.TestRunDirectory);
+            Log.Comment(TestContext.TestResultsDirectory);           
+            Log.Comment("TestDir" + TestContext.TestDir);
+            Log.Comment("TestLogsDir" + TestContext.TestLogsDir);
+            Log.Comment("ResultsDirectory" + TestContext.ResultsDirectory);
+            Log.Comment("TestDeploymentDir" + TestContext.TestDeploymentDir);
+#endif
+        }
 
         private async void WriteFile(string fileName, string content)
         {
             StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+            Log.Comment(fileName + " is written to " + storageFolder.Path );
             await storageFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
         }
         private string GetTargetFileName(string fileNamePrefix)
@@ -74,12 +101,12 @@ namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
             return fileNamePrefix + ".xml";
         }
 
-        private async Task<string> GetBestMatchedMasterFileName(string fileNamePrefix)
+        private string GetBestMatchedMasterFileName(string fileNamePrefix)
         {
             for (ushort version = PlatformConfiguration.GetCurrentAPIVersion(); version >= 2; version--)
             {
                 var fileName = String.Format("{0}-{1}.xml", fileNamePrefix, version);
-                if (await IsFilePresent(fileName))
+                if (IsFilePresent(fileName))
                 {
                     return fileName;
                 }
@@ -89,26 +116,33 @@ namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
 
         private string GetMasterFilePrefix()
         {
-            CheckTrue(TestContext == null, "Testframework should inject the TestContent but not");
-            CheckTrue(String.IsNullOrEmpty(TestContext.FullyQualifiedTestClassName), "FullyQualifiedTestClassName should not be empty");
+            CheckTrue(TestContext != null, "Testframework should inject the TestContent but not");
+            CheckTrue(!String.IsNullOrEmpty(TestContext.FullyQualifiedTestClassName), "FullyQualifiedTestClassName should not be empty");
 
-            var name = TestContext.FullyQualifiedTestClassName.Split(new String[] { "ApiTests" }, StringSplitOptions.None)[1]?.Replace(".", "_");
-            CheckTrue(String.IsNullOrEmpty(name), "Have problem to get master file name for " + TestContext.FullyQualifiedTestClassName);
+            var name = TestContext.FullyQualifiedTestClassName.Split(new String[] { "ApiTests." }, StringSplitOptions.None)[1]?.Replace(".", "_");
+            CheckTrue(!String.IsNullOrEmpty(name), "Have problem to get master file name for " + TestContext.FullyQualifiedTestClassName);
 
             return name;
         }
 
-        private async Task _VisualTreeCompareAsync(UIElement root, String fileNamePrefix)
+        private void _VisualTreeCompareAsync(UIElement root, String fileNamePrefix)
         {
-            var content = VisualTreeDumper.DumpToXML(root);
+            LogTextContent();
 
-            var fileName = await GetBestMatchedMasterFileName(fileNamePrefix);
+            string content = null;
+
+            RunOnUIThread.Execute(() =>
+            {
+                content = VisualTreeDumper.DumpToXML(root);
+            });
+
+            var fileName = GetBestMatchedMasterFileName(fileNamePrefix);
             var targetFileName = GetTargetFileName(fileNamePrefix);
 
             Log.Comment("Target master file: " + targetFileName);
             Log.Comment("Best matched master file: " + targetFileName);
             bool same = false;
-            if (await IsFilePresent(fileName))
+            if (IsFilePresent(fileName))
             {
             }
             if (!same)
@@ -118,13 +152,13 @@ namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
 
         }
 
-        protected async void VisualTreeCompare(UIElement root, String partName)
+        protected void VisualTreeCompare(UIElement root, String partName)
         {
-            var fileNamePrefix = String.Format("{0}_{1}", partName);
-            await _VisualTreeCompareAsync(root, fileNamePrefix);
+            var fileNamePrefix = String.Format("{0}_{1}", GetMasterFilePrefix(), partName);
+             _VisualTreeCompareAsync(root, fileNamePrefix);
         }
 
-        protected async void VisualTreeCompare(UIElement root, CompareType type)
+        protected void VisualTreeCompare(UIElement root, CompareType type)
         {
             VisualTreeCompare(root, type.ToString());
         }
