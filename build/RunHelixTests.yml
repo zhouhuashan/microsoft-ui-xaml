@@ -93,6 +93,7 @@ jobs:
       Debug_x86:
         buildPlatform: 'x86'
         buildConfiguration: 'Debug'
+        # %3b is the escape code for ';' which is used as the delimiter
         helixTargetQueues: 'Windows.10.Amd64.Open%3bWindows.10.Amd64.ClientRS4.Open%3bWindows.10.Amd64.ServerRS5.Open'
       Release_x86:
         buildPlatform: 'x86'
