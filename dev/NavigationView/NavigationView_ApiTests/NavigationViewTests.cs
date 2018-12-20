@@ -37,7 +37,7 @@ namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
     public class NavigationViewVisualTreeTests: VisualTreeTestBase
     {
         [TestMethod]
-        public void VerifyVisualTreeForNavViewAsync()
+        public void VerifyVisualTreeForNavView()
         {
             NavigationView navView = null;
 
@@ -48,7 +48,7 @@ namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
             });
             IdleSynchronizer.Wait();
 
-            VisualTreeCompare(navView, CompareType.Default);
+            VerifyVisualTreeForAllTheme(navView);
         }
     }
 

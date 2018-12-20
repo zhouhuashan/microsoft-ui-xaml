@@ -6,6 +6,8 @@ using System.IO;
 using MUXControls.TestAppUtils;
 using PlatformConfiguration = Common.PlatformConfiguration;
 using MUXControlsTestApp.Utilities;
+using System.Text;
+using System.Collections.Generic;
 
 #if USING_TAEF
 using WEX.TestExecution;
@@ -18,20 +20,110 @@ using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
 
 namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
 {
-    public enum CompareType
+    public enum Theme
     {
         Dark,
-        Default,
+        Light,
         HC
     }
 
+    /// <summary>
+    /// TestBaseClass helps to compare visualtree.
+    /// Don't add <c>[TestInitialize]</c> in your test case, instead, just override <see cref="OnTestInitialized"/>
+    ///  <see cref="VerifyVisualTree"/> helps to compare the visualtree with a 'master' file.
+    /// Master filename for testcase would [testclass]_[testname]_[theme].xml or [testclass]_[testname]_[theme]-[apiversion].xml
+    /// </summary>
     public class VisualTreeTestBase
     {
         public TestContext TestContext { get; set; }
+        
+        public string TestCaseName { get; private set; }
 
-        private string GetMasterFileContent(string fileName)
+        // To avoid filename conflict for master file, we use the format of [testclass]_[testname] as prefix.
+        // For example, Windows.UI.Xaml.Tests.MUXControls.ApiTests.NavigationViewVisualTreeTests.VerifyVisualTreeForNavView
+        // The prefix is NavigationViewVisualTreeTests_VerifyVisualTreeForNavView
+        public string MasterFileNamePrefix { get; set; }
+        public string MasterFileNameInPrefix { get; set; }
+
+        public string MasterFileNamePrefixAndInfix { get { return String.IsNullOrEmpty(MasterFileNameInPrefix) ? MasterFileNamePrefix : MasterFileNamePrefix + "_" + MasterFileNameInPrefix; } }
+
+        protected void VerifyVisualTree(UIElement root, String masterFileInfix)
+        {
+            MasterFileNameInPrefix = masterFileInfix;
+            VisualTreeCompare(root);
+        }
+
+        protected void VerifyVisualTree(UIElement root, Theme theme)
+        {
+            VerifyVisualTree(root, theme.ToString());
+        }
+
+        protected void VerifyVisualTree(UIElement root)
+        {
+            VisualTreeCompare(root);
+        }
+
+        protected void VerifyVisualTreeForAllTheme(UIElement root)
+        {
+            var element = root as FrameworkElement;
+            CheckTrue(element != null, "Expect FrameworkElement");
+
+            bool hasError = false;
+            foreach (var theme in new List<ElementTheme>() { ElementTheme.Dark, ElementTheme.Light})
+            {
+                Log.Comment("Request Theme: " + theme.ToString());
+                RunOnUIThread.Execute(() =>
+                {
+                    element.RequestedTheme = theme;
+                });
+
+                try
+                {
+                    Log.Comment("VerifyVisualTree");
+                    VerifyVisualTree(root, theme.ToString());
+                }
+                catch (Exception e)
+                {
+                    hasError = true;
+                    Log.Comment(e.Message);
+                }
+            }
+            Verify.IsFalse(hasError, "VerifyVisualTreeForAllTheme failed");
+        }
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            CheckTrue(TestContext != null, "Expect framework populate the TestContext");
+            CheckTrue(!String.IsNullOrEmpty(TestContext.TestName), "TestName should not be empty");
+
+            // based on the testframework, TestName may be Windows.UI.Xaml.Tests.MUXControls.ApiTests.NavigationViewVisualTreeTests.VerifyVisualTreeForNavView
+            // or TestName=VerifyVisualTreeForNavView and FullyQualifiedTestClassName=Windows.UI.Xaml.Tests.MUXControls.ApiTests.NavigationViewVisualTreeTests
+            var testCaseFullName = TestContext.TestName;
+            if (!TestContext.TestName.Contains("."))
+            {
+                CheckTrue(!String.IsNullOrEmpty(TestContext.FullyQualifiedTestClassName), "TestContext.FullyQualifiedTestClassName should not be empty");
+                testCaseFullName = TestContext.FullyQualifiedTestClassName + "." + TestContext.TestName;
+            }
+
+            String[] elements = testCaseFullName.Split('.');
+
+            TestCaseName = elements[elements.Length-1];
+            MasterFileNamePrefix = elements[elements.Length - 2] + "_" + TestCaseName;
+
+            LogTestContext();
+            OnTestInitialized();
+        }
+        protected virtual void OnTestInitialized() { }
+
+        protected string GetMasterFileContent(string fileName)
         {
             return GetMasterFileContentAsync(fileName).Result;
+        }
+
+        protected bool IsMasterFilePresent(string fileName)
+        {
+            return IsMasterFilePresentAsync(fileName).Result;
         }
 
         private async Task<string> GetMasterFileContentAsync(string fileName)
@@ -51,13 +143,9 @@ namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
             return content;
         }
 
-        private bool IsFilePresent(string fileName)
+        private async Task<bool> IsMasterFilePresentAsync(string fileName)
         {
-            return IsFilePresentAsync(fileName).Result;
-        }
-
-        private async Task<bool> IsFilePresentAsync(string fileName)
-        {
+            Log.Comment("Read file" + fileName);
             var uri = new Uri("ms-appx:///master/" + fileName);
             try
             {
@@ -70,99 +158,99 @@ namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
                 return false;
             }
         }
-        private void LogTextContent()
+
+        private void LogTestContext()
         {
-            Log.Comment("FullyQualifiedTestClassName:" + TestContext.FullyQualifiedTestClassName);
-            Log.Comment("TestName" + TestContext.TestName);
-#if USING_TAEF
-            Log.Comment(TestContext.TestRunResultsDirectory);
-            Log.Comment(TestContext.TestRunDirectory);
-            Log.Comment(TestContext.TestResultsDirectory);           
-            Log.Comment("TestDir" + TestContext.TestDir);
-            Log.Comment("TestLogsDir" + TestContext.TestLogsDir);
-            Log.Comment("ResultsDirectory" + TestContext.ResultsDirectory);
-            Log.Comment("TestDeploymentDir" + TestContext.TestDeploymentDir);
+#if DEBUG
+            Log.Comment("FullyQualifiedTestClassName: " + TestContext.FullyQualifiedTestClassName);
+            Log.Comment("TestName: " + TestContext.TestName);
 #endif
+            Log.Comment("MasterFileNamePrefix: " + MasterFileNamePrefix);
         }
 
-        private async void WriteFile(string fileName, string content)
+        private void WriteLocalFile(string fileName, string content)
+        {
+            WriteLocalFileAsync(fileName, content).Wait();
+        }
+
+        private async Task WriteLocalFileAsync(string fileName, string content)
         {
             StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
-            Log.Comment(fileName + " is written to " + storageFolder.Path );
-            await storageFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
-        }
-        private string GetTargetFileName(string fileNamePrefix)
-        {
-            return String.Format("{0}-{1}.xml", fileNamePrefix, PlatformConfiguration.GetCurrentAPIVersion());
+            var file = await storageFolder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
+            await FileIO.WriteTextAsync(file, content);
         }
 
-        private string GetMasterFileNameWithoutAPIVersion(string fileNamePrefix)
+        private string GetExpectedMasterFileName()
         {
-            return fileNamePrefix + ".xml";
+            return String.Format("{0}-{1}.xml", MasterFileNamePrefixAndInfix, PlatformConfiguration.GetCurrentAPIVersion());
         }
 
-        private string GetBestMatchedMasterFileName(string fileNamePrefix)
+        private string GetMasterFileNameNoAPIVersion()
+        {
+            return MasterFileNamePrefixAndInfix + ".xml";
+        }
+
+        private string GetMasterFileToBeCompared()
         {
             for (ushort version = PlatformConfiguration.GetCurrentAPIVersion(); version >= 2; version--)
             {
-                var fileName = String.Format("{0}-{1}.xml", fileNamePrefix, version);
-                if (IsFilePresent(fileName))
+                var fileName = String.Format("{0}-{1}.xml", MasterFileNamePrefixAndInfix, version);
+                if (IsMasterFilePresent(fileName))
                 {
                     return fileName;
                 }
             }
-            return GetMasterFileNameWithoutAPIVersion(fileNamePrefix);
+            {
+                var fileName = GetMasterFileNameNoAPIVersion();
+                if (IsMasterFilePresent(fileName))
+                {
+                    return fileName;
+                }
+            }
+            return "";
         }
 
-        private string GetMasterFilePrefix()
+        private void VisualTreeCompare(UIElement root)
         {
-            CheckTrue(TestContext != null, "Testframework should inject the TestContent but not");
-            CheckTrue(!String.IsNullOrEmpty(TestContext.FullyQualifiedTestClassName), "FullyQualifiedTestClassName should not be empty");
-
-            var name = TestContext.FullyQualifiedTestClassName.Split(new String[] { "ApiTests." }, StringSplitOptions.None)[1]?.Replace(".", "_");
-            CheckTrue(!String.IsNullOrEmpty(name), "Have problem to get master file name for " + TestContext.FullyQualifiedTestClassName);
-
-            return name;
-        }
-
-        private void _VisualTreeCompareAsync(UIElement root, String fileNamePrefix)
-        {
-            LogTextContent();
-
-            string content = null;
+            string content = "";
+            string expectedContent = "";
 
             RunOnUIThread.Execute(() =>
             {
                 content = VisualTreeDumper.DumpToXML(root);
             });
 
-            var fileName = GetBestMatchedMasterFileName(fileNamePrefix);
-            var targetFileName = GetTargetFileName(fileNamePrefix);
+            var bestMatchedMasterFileName = GetMasterFileToBeCompared();
+            var expectedMasterFileName = GetExpectedMasterFileName();
 
-            Log.Comment("Target master file: " + targetFileName);
-            Log.Comment("Best matched master file: " + targetFileName);
-            bool same = false;
-            if (IsFilePresent(fileName))
+            Log.Comment("Target master file: " + expectedMasterFileName);
+            Log.Comment("Best matched master file: " + bestMatchedMasterFileName);
+
+            CompareResult result = new CompareResult();
+            if (String.IsNullOrEmpty(bestMatchedMasterFileName))
             {
+                result.AddError("Can't find master file for " + TestCaseName);
             }
-            if (!same)
+            else
             {
-                WriteFile(targetFileName, content);
+                expectedContent = GetMasterFileContent(bestMatchedMasterFileName);
+                result = CompareXML(content, expectedContent);
             }
 
+            if (result.HasError())
+            {
+                WriteLocalFile(expectedMasterFileName, content);
+                WriteLocalFile(expectedMasterFileName + ".orig", expectedContent);
+
+                Log.Comment(result.ToString());
+                var error = String.Format("Compare failed, but {0} is put into {1}", expectedMasterFileName, ApplicationData.Current.LocalFolder.Path);
+                Verify.Fail(error);
+            }
         }
 
-        protected void VisualTreeCompare(UIElement root, String partName)
-        {
-            var fileNamePrefix = String.Format("{0}_{1}", GetMasterFilePrefix(), partName);
-             _VisualTreeCompareAsync(root, fileNamePrefix);
-        }
 
-        protected void VisualTreeCompare(UIElement root, CompareType type)
-        {
-            VisualTreeCompare(root, type.ToString());
-        }
 
+        // Avoid too much logs
         private void CheckTrue(bool flag, string message)
         {
             if (!flag)
@@ -170,9 +258,35 @@ namespace Windows.UI.Xaml.Tests.MUXControls.ApiTests
                 Verify.Fail(message);
             }
         }
-        private void CompareXML()
+        private CompareResult CompareXML(string content, string expectedContent)
         {
+            var result = new CompareResult();
 
+            // A directly string comparision and should be replaced in future
+            if (!content.Trim().Equals(expectedContent.Trim()))
+            {
+                result.AddError("content doesn't match");
+            }
+            return result;
+        }
+    }
+
+    class CompareResult
+    {
+        private StringBuilder _sb = new StringBuilder();
+
+        public bool HasError()
+        {
+            return _sb.Length != 0;
+        }
+        public void AddError(String message)
+        {
+            _sb.AppendLine(message);
+        }
+
+        public override string ToString()
+        {
+            return _sb.ToString();
         }
     }
 }
