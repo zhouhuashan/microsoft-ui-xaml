@@ -1,3 +1,6 @@
+set testnameprefix = %1
+shift
+
 robocopy %HELIX_CORRELATION_PAYLOAD% . /s
 powershell -ExecutionPolicy Bypass Get-Process
 powershell -ExecutionPolicy Bypass Get-AppXPackage -AllUsers
@@ -20,9 +23,9 @@ goto loop
 
 
 
-te MUXControls.Test.dll MUXControlsTestApp.appx /enablewttlogging /unicodeOutput:false /testtimeout:0:10 %*
+te MUXControls.Test.dll MUXControlsTestApp.appx /enablewttlogging /unicodeOutput:false /sessionTimeout:0:15 /testtimeout:0:10 %*
 type te.wtl
 cd scripts
-powershell -ExecutionPolicy Bypass .\ConvertWttLogToXUnit.ps1 ..\te.wtl ..\testResults.xml
+powershell -ExecutionPolicy Bypass .\ConvertWttLogToXUnit.ps1 ..\te.wtl ..\testResults.xml %testnameprefix%
 cd ..
 type testResults.xml
