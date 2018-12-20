@@ -128,5 +128,5 @@ jobs:
       command: custom
       projects: build\Helix\RunTestsInHelix.proj
       custom: msbuild
-      arguments: '/p:HelixBuild=$(Build.BuildId) /verbosity:detailed /p:Creator=kmahone'
+      arguments: '/p:HelixBuild=$(Build.BuildId) /verbosity:diag /p:Creator=kmahone /p:IsExternal'
       
