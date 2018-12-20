@@ -30,7 +30,7 @@
       <Timeout>00:20:00</Timeout>
       <Command>call %HELIX_CORRELATION_PAYLOAD%\runtests.cmd $(Configuration).$(Platform) /name:Windows.UI.Xaml.Tests.MUXControls.InteractionTests.ColorPickerTests.*</Command>
     </HelixWorkItem>
-    <HelixWorkItem Include="InteractionTests.RatingControlTests">
+    <!-- <HelixWorkItem Include="InteractionTests.RatingControlTests">
       <Timeout>00:20:00</Timeout>
       <Command>call %HELIX_CORRELATION_PAYLOAD%\runtests.cmd $(Configuration).$(Platform) /name:Windows.UI.Xaml.Tests.MUXControls.InteractionTests.RatingControlTests.*</Command>
     </HelixWorkItem>
@@ -253,7 +253,7 @@
     <HelixWorkItem Include="ApiTests.RepeaterTests.ViewportTests">
       <Timeout>00:20:00</Timeout>
       <Command>call %HELIX_CORRELATION_PAYLOAD%\runtests.cmd $(Configuration).$(Platform) /name:Windows.UI.Xaml.Tests.MUXControls.ApiTests.RepeaterTests.ViewportTests.*</Command>
-    </HelixWorkItem>
+    </HelixWorkItem> -->
 
     <!-- <HelixWorkItem Include="InteractionTests.ScrollerViewTestsWithInputHelper">
       <Timeout>00:20:00</Timeout>
@@ -265,7 +265,7 @@
     </HelixWorkItem> -->
 
     <!-- NavigationView tests -->
-    <HelixWorkItem Include="InteractionTests.NavigationViewTests-A">
+    <!-- <HelixWorkItem Include="InteractionTests.NavigationViewTests-A">
       <Timeout>00:20:00</Timeout>
       <Command>call %HELIX_CORRELATION_PAYLOAD%\runtests.cmd $(Configuration).$(Platform) /select:"(@Name='Windows.UI.Xaml.Tests.MUXControls.InteractionTests.NavigationViewTests.*' and @NavViewTestSuite='A')"</Command>
     </HelixWorkItem>
@@ -280,17 +280,17 @@
     <HelixWorkItem Include="InteractionTests.NavigationViewTests-D">
       <Timeout>00:20:00</Timeout>
       <Command>call %HELIX_CORRELATION_PAYLOAD%\runtests.cmd $(Configuration).$(Platform) /select:"(@Name='Windows.UI.Xaml.Tests.MUXControls.InteractionTests.NavigationViewTests.*' and @NavViewTestSuite='D')"</Command>
-    </HelixWorkItem>
+    </HelixWorkItem> -->
 
 
-    <HelixWorkItem Include="InteractionTests.TreeViewTests-A">
+    <!-- <HelixWorkItem Include="InteractionTests.TreeViewTests-A">
       <Timeout>00:20:00</Timeout>
       <Command>call %HELIX_CORRELATION_PAYLOAD%\runtests.cmd $(Configuration).$(Platform) /select:"(@Name='Windows.UI.Xaml.Tests.MUXControls.InteractionTests.TreeViewTests.*' and @TreeViewTestSuite='A')"</Command>
     </HelixWorkItem>
     <HelixWorkItem Include="InteractionTests.TreeViewTests-B">
       <Timeout>00:20:00</Timeout>
       <Command>call %HELIX_CORRELATION_PAYLOAD%\runtests.cmd $(Configuration).$(Platform) /select:"(@Name='Windows.UI.Xaml.Tests.MUXControls.InteractionTests.TreeViewTests.*' and @TreeViewTestSuite='B')"</Command>
-    </HelixWorkItem>
+    </HelixWorkItem> -->
 
   </ItemGroup>
 </Project>

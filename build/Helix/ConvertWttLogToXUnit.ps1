@@ -3,7 +3,7 @@ Param(
     [string]$WttInputPath,
 
     [Parameter(Mandatory = $true)] 
-    [string]$XUnitOutputPath
+    [string]$XUnitOutputPath,
 
     [Parameter(Mandatory = $true)] 
     [string]$testNamePrefix
