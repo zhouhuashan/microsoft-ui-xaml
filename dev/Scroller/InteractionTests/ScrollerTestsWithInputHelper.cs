@@ -357,8 +357,8 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             }
         }
 
-        [TestMethod]
-        [TestProperty("Description", "Pinch a Rectangle in a Scroller.")]
+        //[TestMethod]
+        //[TestProperty("Description", "Pinch a Rectangle in a Scroller.")]
         public void PinchRectangle()
         {
             if (PlatformConfiguration.IsDevice(DeviceType.Phone))
@@ -475,7 +475,7 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             while (additionalAttempts > 0);
         }
 
-        [TestMethod]
+        //[TestMethod]
         [TestProperty("Description", "Stretch an Image in a Scroller.")]
         public void StretchImage()
         {
@@ -572,7 +572,7 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             while (additionalAttempts > 0);
         }
 
-        [TestMethod]
+        //[TestMethod]
         [TestProperty("Description", "Pinch a Rectangle in a Scroller with the mouse wheel.")]
         public void PinchRectangleWithMouseWheel()
         {

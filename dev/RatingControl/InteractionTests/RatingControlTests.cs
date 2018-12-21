@@ -32,6 +32,7 @@ using Microsoft.Windows.Apps.Test.Foundation.Patterns;
 using Microsoft.Windows.Apps.Test.Foundation.Waiters;
 using Image = Microsoft.Windows.Apps.Test.Foundation.Controls.Image;
 using Point = System.Drawing.Point;
+using System.Threading;
 #endif
 
 namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
@@ -296,6 +297,7 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
                 GamepadHelper.PressButton(ratingUIObject, GamepadButton.A);
                 GamepadHelper.PressButton(ratingUIObject, GamepadButton.A);
                 Wait.ForIdle();
+                Thread.Sleep(2000); //dumb sleep
                 Verify.AreEqual("1", textBlock.DocumentText);
 
                 Log.Comment("Verify gamepad one change and cancel");

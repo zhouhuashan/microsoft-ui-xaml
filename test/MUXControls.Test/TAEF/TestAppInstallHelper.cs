@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 using Microsoft.Win32;
@@ -84,7 +84,7 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests.Infra
                     Log.Comment("Installing Test Appx Package: {0}", packageUri.AbsolutePath);
 
                     AutoResetEvent addPackageCompleteEvent = new AutoResetEvent(false);
-                    var addPackageOperation = packageManager.AddPackageAsync(packageUri, depsPackages, DeploymentOptions.None);
+                    var addPackageOperation = packageManager.AddPackageAsync(packageUri, depsPackages, DeploymentOptions.ForceApplicationShutdown);
                     addPackageOperation.Completed = (operation, status) =>
                     {
                         if (status != AsyncStatus.Started)
@@ -101,6 +101,7 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests.Infra
                         Log.Error("Package installation ActivityId = {0}", result.ActivityId);
                         Log.Error("Package installation ErrorText = {0}", result.ErrorText);
                         Log.Error("Package installation ExtendedErrorCode = {0}", result.ExtendedErrorCode);
+                        throw new Exception("Failed to install Test Appx Package: " + result.ErrorText);
                     }
                     else
                     {

@@ -1483,8 +1483,8 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             }
         }
 
-        [TestMethod]
-        [TestProperty("NavViewTestSuite", "B")]
+        //[TestMethod]
+        //[TestProperty("NavViewTestSuite", "B")]
         public void SuppressSelectionItemInvokeTest()
         {
             using (IDisposable page1 = new TestSetupHelper("NavigationView Tests"),
@@ -2647,8 +2647,8 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             }
         }
 
-        [TestMethod]
-        [TestProperty("NavViewTestSuite", "C")]
+        //[TestMethod]
+        //[TestProperty("NavViewTestSuite", "C")]
         public void KeyboardFocusToolTipTest() // Verify tooltips appear when Keyboard focused
         {
             using (IDisposable page1 = new TestSetupHelper("NavigationView Tests"),
@@ -3505,8 +3505,8 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             }
         }
 
-        [TestMethod]
-        [TestProperty("NavViewTestSuite", "D")]
+        //[TestMethod]
+        //[TestProperty("NavViewTestSuite", "D")]
         public void EnsureDynamicSizeForPaneHeaderFooterAndCustomContent()
         {
             using (IDisposable page1 = new TestSetupHelper("NavigationView Tests"),
