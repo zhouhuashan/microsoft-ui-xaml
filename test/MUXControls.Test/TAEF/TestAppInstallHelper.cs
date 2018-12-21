@@ -25,9 +25,9 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests.Infra
         /// <summary>
         /// Installs the unit test app
         /// </summary>
-        public static void InstallTestAppIfNeeded(string deploymentDir, string packageName, string packageFullName)
+        public static void InstallTestAppIfNeeded(string deploymentDir, string packageName, string packageFamilyName)
         {
-            if (!TestAppxInstalled.Contains(packageFullName))
+            if (!TestAppxInstalled.Contains(packageFamilyName))
             {
                 FileInfo appxFile = new FileInfo(Path.Combine(deploymentDir, packageName + ".appx"));
                 if (appxFile.Exists)
@@ -35,12 +35,13 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests.Infra
                     PackageManager packageManager = new PackageManager();
                     DeploymentResult result = null;
                     
-                    if (packageManager.FindPackageForUser(string.Empty, packageFullName) != null)
+                    var installedPackages = packageManager.FindPackagesForUser(string.Empty, packageFamilyName);
+                    foreach (var installedPackage in installedPackages)
                     {
-                        Log.Comment("Test AppX package already installed. Removing existing package by name: {0}", packageFullName);
+                        Log.Comment("Test AppX package already installed. Removing existing package by name: {0}", installedPackage.Id.FullName);
 
                         AutoResetEvent removePackageCompleteEvent = new AutoResetEvent(false);
-                        var removePackageOperation = packageManager.RemovePackageAsync(packageFullName);
+                        var removePackageOperation = packageManager.RemovePackageAsync(installedPackage.Id.FullName);
                         removePackageOperation.Completed = (operation, status) =>
                         {
                             if (status != AsyncStatus.Started)
@@ -113,7 +114,7 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests.Infra
                     Log.Comment("Test Appx Package was not found in {0}.", deploymentDir);
                 }
 
-                TestAppxInstalled.Add(packageFullName);
+                TestAppxInstalled.Add(packageFamilyName);
             }
         }
         
