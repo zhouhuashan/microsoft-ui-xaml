@@ -795,8 +795,8 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             }
         }
 
-        [TestMethod]
-        [TestProperty("TreeViewTestSuite", "A")]
+        //[TestMethod]
+        //[TestProperty("TreeViewTestSuite", "A")]
         public void TreeViewDragAndDropOnNode_NodeMode()
         {
             TreeViewDragAndDropOnNode();

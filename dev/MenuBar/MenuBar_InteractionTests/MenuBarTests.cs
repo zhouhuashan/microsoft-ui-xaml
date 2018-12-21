@@ -165,7 +165,7 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             }
         }
         
-        [TestMethod]
+        //[TestMethod]
         public void KeyboardNavigationWithAccessKeysTest()
         {
             if (PlatformConfiguration.IsDevice(DeviceType.Phone))
