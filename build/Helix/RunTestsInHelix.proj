@@ -21,6 +21,9 @@
     
     <EnableXUnitReporter>true</EnableXUnitReporter>
     <EnableAzurePipelinesReporter>true</EnableAzurePipelinesReporter>
+
+    <HelixPreCommands>$(HelixPreCommands);echo 'pizza'; set foo=$(Configuration).$(Platform)</HelixPreCommands>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,7 +31,8 @@
     
     <HelixWorkItem Include="InteractionTests.ColorPickerTests">
       <Timeout>00:20:00</Timeout>
-      <Command>call %HELIX_CORRELATION_PAYLOAD%\runtests.cmd $(Configuration).$(Platform) /name:Windows.UI.Xaml.Tests.MUXControls.InteractionTests.ColorPickerTests.*</Command>
+      <PreCommands>set testnameprefix=$(Configuration).$(Platform)</PreCommands>
+      <Command>call %HELIX_CORRELATION_PAYLOAD%\runtests.cmd /name:Windows.UI.Xaml.Tests.MUXControls.InteractionTests.ColorPickerTests.*</Command>
     </HelixWorkItem>
     <!-- <HelixWorkItem Include="InteractionTests.RatingControlTests">
       <Timeout>00:20:00</Timeout>

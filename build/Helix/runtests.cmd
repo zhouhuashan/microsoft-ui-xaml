@@ -1,5 +1,4 @@
-set testnameprefix = %1
-shift
+set
 
 robocopy %HELIX_CORRELATION_PAYLOAD% . /s
 powershell -ExecutionPolicy Bypass Get-Process
