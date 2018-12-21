@@ -1,5 +1,3 @@
-set
-
 robocopy %HELIX_CORRELATION_PAYLOAD% . /s
 powershell -ExecutionPolicy Bypass Get-Process
 powershell -ExecutionPolicy Bypass Get-AppXPackage -AllUsers
