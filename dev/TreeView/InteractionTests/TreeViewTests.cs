@@ -122,9 +122,9 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             }
         }
 
-        [TestMethod]
-        [TestProperty("TreeViewTestSuite", "A")]
-        [TestProperty("Platform", "Desktop")]
+        // [TestMethod]
+        // [TestProperty("TreeViewTestSuite", "A")]
+        // [TestProperty("Platform", "Desktop")]
         public void ExpandCollapseTest_NodeMode()
         {
            ExpandCollapseTest();
@@ -419,9 +419,9 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             TreeViewKeyDownLeftToRightTest();
         }
 
-        [TestMethod]
-        [TestProperty("TreeViewTestSuite", "A")]
-        [TestProperty("Platform", "Desktop")]
+        // [TestMethod]
+        // [TestProperty("TreeViewTestSuite", "A")]
+        // [TestProperty("Platform", "Desktop")]
         public void TreeViewKeyDownLeftToRightTest_ContentMode()
         {
             TreeViewKeyDownLeftToRightTest(isContentMode: true);
@@ -802,8 +802,8 @@ namespace Windows.UI.Xaml.Tests.MUXControls.InteractionTests
             TreeViewDragAndDropOnNode();
         }
 
-        [TestMethod]
-        [TestProperty("TreeViewTestSuite", "A")]
+        // [TestMethod]
+        // [TestProperty("TreeViewTestSuite", "A")]
         public void TreeViewDragAndDropOnNode_ContentMode()
         {
             TreeViewDragAndDropOnNode(isContentMode:true);
