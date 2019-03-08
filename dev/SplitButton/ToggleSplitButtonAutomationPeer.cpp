@@ -102,3 +102,15 @@ void ToggleSplitButtonAutomationPeer::Toggle()
         splitButton->Toggle();
     }
 }
+
+void ToggleSplitButtonAutomationPeer::RaiseToggleAutomationEvent(bool newState)
+{
+    if (winrt::AutomationPeer::ListenerExists(winrt::AutomationEvents::PropertyChanged))
+    {
+        bool oldState = !newState;
+        auto toggleStateProperty = winrt::TogglePatternIdentifiers::ToggleStateProperty();
+
+        // box_value(oldState) doesn't work here, use ReferenceWithABIRuntimeClassName to make Narrator can unbox it.
+        RaisePropertyChangedEvent(toggleStateProperty, box_value(oldState), box_value(newState));
+    }
+}

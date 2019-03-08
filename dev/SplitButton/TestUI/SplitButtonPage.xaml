@@ -49,6 +49,35 @@
                 <util:ControlStateViewer x:Name="ControlStateViewer" Margin="0,16,0,0"/>
 
                 <util:ControlStateViewer x:Name="ToggleControlStateViewer" Margin="0,6,0,0"/>
+
+                <Button x:Name="Button1" Content="Button" Margin="10,20,0,12"/>
+                <Button x:Name="Button2" Content="Button" Margin="10,0,0,12"/>
+                <Button x:Name="Button3" Content="Button" Margin="10,0,0,12"/>
+                <Button x:Name="Button4" Content="Button" Margin="10,0,0,12">
+                    <Button.Flyout>
+                        <Flyout x:Name="ButtonFlyout2" Placement="Bottom">
+                            <Flyout.FlyoutPresenterStyle>
+                                <Style TargetType="FlyoutPresenter">
+                                    <Setter Property="Padding" Value="12" />
+                                </Style>
+                            </Flyout.FlyoutPresenterStyle>
+                            <TextBlock Text="Hello there"/>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+                <Button x:Name="Button5" Content="Button" Margin="10,0,0,12">
+                    <Button.Flyout>
+                        <Flyout x:Name="ButtonFlyout" Placement="Bottom">
+                            <Flyout.FlyoutPresenterStyle>
+                                <Style TargetType="FlyoutPresenter">
+                                    <Setter Property="Padding" Value="12" />
+                                    <Setter Property="CornerRadius" Value="20"/>
+                                </Style>
+                            </Flyout.FlyoutPresenterStyle>
+                            <TextBlock Text="Hello there"/>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
             </StackPanel>
         </ScrollViewer>
 

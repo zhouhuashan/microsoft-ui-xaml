@@ -27,6 +27,7 @@ public:
     // IToggleProvider
     winrt::ToggleState ToggleState();
     void Toggle();
+    void RaiseToggleAutomationEvent(bool newState);
 
 private:
     com_ptr<ToggleSplitButton> GetImpl();

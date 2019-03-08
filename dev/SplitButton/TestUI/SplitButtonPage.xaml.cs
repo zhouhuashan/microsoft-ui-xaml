@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Markup;
 using Windows.UI;
 using System.Windows.Input;
 using System.Collections.Generic;
+using Windows.Foundation.Metadata;
 
 #if !BUILD_WINDOWS
 using SplitButton = Microsoft.UI.Xaml.Controls.SplitButton;
@@ -68,6 +69,20 @@ namespace MUXControlsTestApp
                 "CheckedSecondaryPointerOver",
                 "CheckedSecondaryPressed",
             };
+
+            if (ApiInformation.IsPropertyPresent("Windows.UI.Xaml.Controls.Control", "CornerRadius"))
+            {
+                Button1.CornerRadius = new CornerRadius(10, 10, 10, 10);
+                Button2.CornerRadius = new CornerRadius(10, 10, 0, 0);
+                Button3.CornerRadius = new CornerRadius(0, 0, 10, 10);
+                Button4.CornerRadius = new CornerRadius(10, 0, 10, 0);
+                Button5.CornerRadius = new CornerRadius(0, 10, 0, 10);
+
+                //var style = new Style(typeof(FlyoutPresenter));
+                //var setter = new Setter(FlyoutPresenter.CornerRadiusProperty, new CornerRadius(0, 10, 0, 10));
+                //style.Setters.Add(setter);
+                //ButtonFlyout.FlyoutPresenterStyle = style;
+            }
         }
 
         private void TestSplitButton_Click(object sender, object e)

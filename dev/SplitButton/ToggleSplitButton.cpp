@@ -44,6 +44,12 @@ void ToggleSplitButton::OnIsCheckedChanged()
         m_isCheckedChangedEventSource(*this, *eventArgs);
     }
 
+    if (auto peer = winrt::FrameworkElementAutomationPeer::FromElement(*this))
+    {
+        auto toggleSplitButtonPeer = peer.as<winrt::ToggleSplitButtonAutomationPeer>();
+        winrt::get_self<ToggleSplitButtonAutomationPeer>(toggleSplitButtonPeer)->RaiseToggleAutomationEvent(IsChecked());
+    }
+
     UpdateVisualStates();
 }
 
