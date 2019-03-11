@@ -6,6 +6,8 @@
 #include "TreeView.h"
 #include "TreeViewItem.h"
 #include "TreeViewItemAutomationPeer.h"
+#include <UIAutomationCore.h>
+#include <UIAutomationCoreApi.h>
 
 CppWinRTActivatableClassWithBasicFactory(TreeViewItemAutomationPeer);
 
@@ -54,6 +56,37 @@ void TreeViewItemAutomationPeer::Expand()
 }
 
 // IAutomationPeerOverrides
+winrt::IInspectable TreeViewItemAutomationPeer::NavigateCore(winrt::AutomationNavigationDirection direction)
+{
+    if (direction == winrt::AutomationNavigationDirection::Parent)
+    {
+        auto treeViewItem = safe_cast<winrt::TreeViewItem>(Owner());
+
+        if (auto treeView = SharedHelpers::GetAncestorOfType<winrt::TreeView>(winrt::VisualTreeHelper::GetParent(treeViewItem)))
+        {
+            return winrt::get_self<TreeView>(treeView)->GetParentAutomationPeer(treeViewItem);
+        }
+
+        throw winrt::hresult_error(UIA_E_ELEMENTNOTAVAILABLE);
+    }
+    else
+    {
+        return GetInner().as<winrt::IAutomationPeerOverrides3>().NavigateCore(direction);
+    }
+}
+
+winrt::IVector<winrt::AutomationPeer> TreeViewItemAutomationPeer::GetChildrenCore()
+{
+    auto treeViewItem = safe_cast<winrt::TreeViewItem>(Owner());
+
+    if (auto treeView = SharedHelpers::GetAncestorOfType<winrt::TreeView>(winrt::VisualTreeHelper::GetParent(treeViewItem)))
+    {
+        return winrt::get_self<TreeView>(treeView)->GetChildrenAutomationPeers(treeViewItem);
+    }
+
+    throw winrt::hresult_error(UIA_E_ELEMENTNOTAVAILABLE);
+}
+
 winrt::IInspectable TreeViewItemAutomationPeer::GetPatternCore(winrt::PatternInterface const& patternInterface)
 {
     if (patternInterface == winrt::PatternInterface::ExpandCollapse)

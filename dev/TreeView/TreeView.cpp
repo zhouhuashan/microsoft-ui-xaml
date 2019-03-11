@@ -12,6 +12,8 @@
 #include "TreeViewNode.h"
 #include "RuntimeProfiler.h"
 #include "InspectingDataSource.h"
+#include <UIAutomationCore.h>
+#include <UIAutomationCoreApi.h>
 
 static constexpr auto c_listControlName = L"ListControl"sv;
 
@@ -29,6 +31,40 @@ winrt::IVector<winrt::TreeViewNode> TreeView::RootNodes()
 {
     auto x = m_rootNode.get().Children();
     return x;
+}
+
+winrt::AutomationPeer TreeView::GetParentAutomationPeer(winrt::TreeViewItem const& container)
+{
+    if (auto node = NodeFromContainer(container))
+    {
+        auto parent = node.Parent();
+        if (parent)
+        {
+            if (parent == m_rootNode.get())
+            {
+                return winrt::FrameworkElementAutomationPeer::FromElement(m_listControl.get());
+            }
+            else
+            {
+                if (auto parentContainer = ContainerFromNode(parent).try_as<winrt::TreeViewItem>())
+                {
+                    return winrt::FrameworkElementAutomationPeer::FromElement(parentContainer);
+                }                
+            }
+        }
+    }
+    throw winrt::hresult_error(UIA_E_ELEMENTNOTAVAILABLE);
+}
+
+winrt::IVector<winrt::AutomationPeer> TreeView::GetChildrenAutomationPeers(winrt::IInspectable const& container)
+{
+    winrt::TreeViewNode node = m_rootNode.get();
+    if (auto treeViewItem = container.try_as<winrt::TreeViewItem>())
+    {
+        node = NodeFromContainer(treeViewItem).try_as<winrt::TreeViewNode>();
+    }
+  
+    return GetChildrenAutomationPeersFor(node);
 }
 
 TreeViewList* TreeView::ListControl()
@@ -146,6 +182,41 @@ void TreeView::OnNodeCollapsed(const winrt::TreeViewNode& sender, const winrt::I
             templateSettings->CollapsedGlyphVisibility(winrt::Visibility::Visible);
         }
         m_collapsedEventSource(*this, *treeViewCollapsedEventArgs);
+    }
+}
+
+winrt::IVector<winrt::AutomationPeer> TreeView::GetChildrenAutomationPeersFor(winrt::TreeViewNode node)
+{
+    std::vector<winrt::AutomationPeer> childrenAutomationPeers;
+
+    // Setup and filter peers
+    {
+        if (node)
+        {
+            auto children = node.Children();
+            for (uint32_t i = 0; i < children.Size(); i++)
+            {
+                if (auto childTreeViewItem = ContainerFromNode(children.GetAt(i)).try_as<winrt::UIElement>())
+                {
+                    childrenAutomationPeers.push_back(winrt::FrameworkElementAutomationPeer::FromElement(childTreeViewItem));
+                };
+            }
+        }
+        else
+        {
+            throw winrt::hresult_error(UIA_E_ELEMENTNOTAVAILABLE);
+        }
+    }
+
+    // Copy peers to winrt::IVector.
+    {
+        auto peers = winrt::make<Vector<winrt::AutomationPeer, MakeVectorParam<VectorFlag::DependencyObjectBase>()>>(
+            static_cast<int>(childrenAutomationPeers.size()) /* capacity */);
+        for (auto const& peer : childrenAutomationPeers)
+        {
+            peers.Append(peer);
+        }
+        return peers;
     }
 }
 

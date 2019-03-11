@@ -20,6 +20,8 @@ class TreeView :
 public:
     TreeView();
     winrt::IVector<winrt::TreeViewNode> RootNodes();
+    winrt::AutomationPeer GetParentAutomationPeer(winrt::TreeViewItem const& container);
+    winrt::IVector<winrt::AutomationPeer> GetChildrenAutomationPeers(winrt::IInspectable const& container);
     TreeViewList* ListControl();
 
     winrt::IInspectable ItemFromContainer(winrt::DependencyObject const& container);
@@ -42,6 +44,7 @@ public:
     void UpdateItemsSelectionMode(bool isMultiSelect);
 
 private:
+    winrt::IVector<winrt::AutomationPeer> GetChildrenAutomationPeersFor(winrt::TreeViewNode node);
     static void OnPropertyChanged(const winrt::DependencyObject& sender, const winrt::DependencyPropertyChangedEventArgs& args);
 
     winrt::ItemsSourceView m_itemsDataSource{ nullptr };

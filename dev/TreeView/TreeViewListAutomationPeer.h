@@ -16,6 +16,7 @@ public:
     TreeViewListAutomationPeer(winrt::TreeViewList const& owner);
 
     // IAutomationPeerOverrides
+    winrt::IVector<winrt::AutomationPeer> GetChildrenCore();
     winrt::IInspectable GetPatternCore(winrt::PatternInterface const& patternInterface);
     winrt::AutomationControlType GetAutomationControlTypeCore();
 

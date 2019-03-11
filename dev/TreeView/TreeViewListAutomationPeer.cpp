@@ -5,6 +5,9 @@
 #include "common.h"
 #include "TreeViewList.h"
 #include "TreeViewListAutomationPeer.h"
+#include "TreeView.h"
+#include <UIAutomationCore.h>
+#include <UIAutomationCoreApi.h>
 
 CppWinRTActivatableClassWithBasicFactory(TreeViewListAutomationPeer);
 
@@ -29,6 +32,18 @@ winrt::hstring TreeViewListAutomationPeer::DropEffect()
 winrt::com_array<winrt::hstring> TreeViewListAutomationPeer::DropEffects()
 {
     throw winrt::hresult_not_implemented();
+}
+
+winrt::IVector<winrt::AutomationPeer> TreeViewListAutomationPeer::GetChildrenCore()
+{
+    auto treeViewList = safe_cast<winrt::TreeViewList>(Owner());
+
+    if (auto treeView = SharedHelpers::GetAncestorOfType<winrt::TreeView>(winrt::VisualTreeHelper::GetParent(treeViewList)))
+    {
+        return winrt::get_self<TreeView>(treeView)->GetChildrenAutomationPeers(treeViewList);
+    }
+
+    throw winrt::hresult_error(UIA_E_ELEMENTNOTAVAILABLE);
 }
 
 winrt::IInspectable TreeViewListAutomationPeer::GetPatternCore(winrt::PatternInterface const& patternInterface)

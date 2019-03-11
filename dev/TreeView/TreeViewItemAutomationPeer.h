@@ -19,6 +19,8 @@ public:
     void Expand();
 
     // IAutomationPeerOverrides
+    winrt::IInspectable NavigateCore(winrt::AutomationNavigationDirection direction);
+    winrt::IVector<winrt::AutomationPeer> GetChildrenCore();
     winrt::AutomationControlType GetAutomationControlTypeCore();
     winrt::hstring GetNameCore();
     winrt::IInspectable GetPatternCore(winrt::PatternInterface const& patternInterface);
