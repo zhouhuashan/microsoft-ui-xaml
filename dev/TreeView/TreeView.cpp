@@ -220,6 +220,37 @@ winrt::IVector<winrt::AutomationPeer> TreeView::GetChildrenAutomationPeersFor(wi
     }
 }
 
+winrt::IVector<winrt::AutomationPeer> TreeView::GetChildrenAutomationPeers()
+{
+    std::vector<winrt::AutomationPeer> childrenAutomationPeers;
+
+    // Setup and filter peers
+    {
+        auto listControl = ListControl();
+        auto viewModel = listControl->ListViewModel();
+        int size = viewModel->Size();
+
+        for (int i = 0; i < size; i++)
+        {
+            if (auto node = safe_cast<winrt::TreeViewItem>(listControl->ContainerFromIndex(i)))
+            {
+                childrenAutomationPeers.push_back(winrt::FrameworkElementAutomationPeer::FromElement(node));
+            }
+        }
+    }
+
+    // Copy peers to winrt::IVector.
+    {
+        auto peers = winrt::make<Vector<winrt::AutomationPeer, MakeVectorParam<VectorFlag::DependencyObjectBase>()>>(
+            static_cast<int>(childrenAutomationPeers.size()) /* capacity */);
+        for (auto const& peer : childrenAutomationPeers)
+        {
+            peers.Append(peer);
+        }
+        return peers;
+    }
+}
+
 void TreeView::OnPropertyChanged(const winrt::DependencyPropertyChangedEventArgs& args)
 {
     winrt::IDependencyProperty property = args.Property();

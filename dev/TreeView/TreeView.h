@@ -20,6 +20,7 @@ class TreeView :
 public:
     TreeView();
     winrt::IVector<winrt::TreeViewNode> RootNodes();
+    winrt::IVector<winrt::AutomationPeer> GetChildrenAutomationPeers();
     winrt::AutomationPeer GetParentAutomationPeer(winrt::TreeViewItem const& container);
     winrt::IVector<winrt::AutomationPeer> GetChildrenAutomationPeers(winrt::IInspectable const& container);
     TreeViewList* ListControl();

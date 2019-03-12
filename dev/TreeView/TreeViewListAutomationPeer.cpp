@@ -40,7 +40,7 @@ winrt::IVector<winrt::AutomationPeer> TreeViewListAutomationPeer::GetChildrenCor
 
     if (auto treeView = SharedHelpers::GetAncestorOfType<winrt::TreeView>(winrt::VisualTreeHelper::GetParent(treeViewList)))
     {
-        return winrt::get_self<TreeView>(treeView)->GetChildrenAutomationPeers(treeViewList);
+        return winrt::get_self<TreeView>(treeView)->GetChildrenAutomationPeers();
     }
 
     throw winrt::hresult_error(UIA_E_ELEMENTNOTAVAILABLE);
