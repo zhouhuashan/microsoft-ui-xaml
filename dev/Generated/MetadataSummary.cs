@@ -615,6 +615,11 @@ namespace CustomTasks
             // SymbolIconSource -- DefaultValueMetadata
             DefaultValueMetadata["SymbolIconSource.Symbol"] = @"winrt::Symbol::Emoji";
 
+            IncludedTypesMetadata["TabView"] = true;
+            // TabView -- NeedsPropChangedCallbackMetadata
+            NeedsPropChangedCallbackMetadata["TabView.Placeholder"] = true;
+            // TabView -- DefaultValueMetadata
+
             IncludedTypesMetadata["TeachingTip"] = true;
             // TeachingTip -- NeedsPropChangedCallbackMetadata
             NeedsPropChangedCallbackMetadata["TeachingTip.ActionButtonCommand"] = true;
