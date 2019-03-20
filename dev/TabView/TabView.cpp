@@ -1,4 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 #include "pch.h"
@@ -18,12 +18,41 @@ void TabView::OnApplyTemplate()
 {
     winrt::IControlProtected controlProtected{ *this };
 
-    // TODO: Implement
+    m_tabContentPresenter.set(GetTemplateChildT<winrt::ContentPresenter>(L"TabContentPresenter", controlProtected));
+
+    //m_listViewLoadedRevoker = listView.Loaded(winrt::auto_revoke, { this, &RadioButtons::OnListViewLoaded });
+
+    //### do I need a revoker when listening to my own event....??
+    m_selectionChangedRevoker = SelectionChanged(winrt::auto_revoke, { this, &TabView::OnSelectionChanged });
 }
 
-void  TabView::OnPropertyChanged(const winrt::DependencyPropertyChangedEventArgs& args)
+void TabView::OnPropertyChanged(const winrt::DependencyPropertyChangedEventArgs& args)
 {
     winrt::IDependencyProperty property = args.Property();
     
     // TODO: Implement
+}
+
+void TabView::OnSelectionChanged(const winrt::IInspectable& sender, const winrt::SelectionChangedEventArgs& args)
+{
+    if (auto tabContentPresenter = m_tabContentPresenter.get())
+    {
+        if (!SelectedItem())
+        {
+            tabContentPresenter.Content(nullptr);
+            tabContentPresenter.ContentTemplate(nullptr);
+        }
+        else
+        {
+            auto container = ContainerFromItem(SelectedItem()).as<winrt::ListViewItem>();
+            if (container)
+            {
+                //if (ContainerFromItem(SelectedItem) is TabViewItem container)
+                //{
+                tabContentPresenter.Content(container.Content());
+                tabContentPresenter.ContentTemplate(container.ContentTemplate());
+                //}
+            }
+        }
+    }
 }
