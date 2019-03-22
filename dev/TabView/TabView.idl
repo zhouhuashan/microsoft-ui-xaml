@@ -9,3 +9,21 @@ unsealed runtimeclass TabView : Windows.UI.Xaml.Controls.ListView
 
     static Windows.UI.Xaml.DependencyProperty PlaceholderProperty{ get; };
 }
+
+[WUXC_VERSION_RS5]
+[webhosthidden]
+[MUX_PROPERTY_CHANGED_CALLBACK(TRUE)]
+unsealed runtimeclass TabViewItem : Windows.UI.Xaml.Controls.ListViewItem
+{
+    TabViewItem();
+
+    [MUX_PROPERTY_CHANGED_CALLBACK(TRUE)]
+    String Header{ get; set; };
+    Windows.UI.Xaml.DataTemplate HeaderTemplate{ get; set; };
+    [MUX_PROPERTY_CHANGED_CALLBACK(TRUE)]
+    Windows.UI.Xaml.Controls.IconElement Icon{ get; set; };
+
+    static Windows.UI.Xaml.DependencyProperty HeaderProperty{ get; };
+    static Windows.UI.Xaml.DependencyProperty HeaderTemplateProperty{ get; };
+    static Windows.UI.Xaml.DependencyProperty IconProperty{ get; };
+}

@@ -620,6 +620,13 @@ namespace CustomTasks
             NeedsPropChangedCallbackMetadata["TabView.Placeholder"] = true;
             // TabView -- DefaultValueMetadata
 
+            IncludedTypesMetadata["TabViewItem"] = true;
+            // TabViewItem -- NeedsPropChangedCallbackMetadata
+            NeedsPropChangedCallbackMetadata["TabViewItem.Header"] = true;
+            NeedsPropChangedCallbackMetadata["TabViewItem.HeaderTemplate"] = true;
+            NeedsPropChangedCallbackMetadata["TabViewItem.Icon"] = true;
+            // TabViewItem -- DefaultValueMetadata
+
             IncludedTypesMetadata["TeachingTip"] = true;
             // TeachingTip -- NeedsPropChangedCallbackMetadata
             NeedsPropChangedCallbackMetadata["TeachingTip.ActionButtonCommand"] = true;

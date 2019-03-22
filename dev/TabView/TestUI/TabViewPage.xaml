@@ -10,13 +10,19 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="12">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Orientation="Vertical">
             <controls:TabView>
                 <controls:TabView.Items>
-                    <x:String>One</x:String>
-                    <x:String>Two</x:String>
-                    <x:String>Three</x:String>
+                    <controls:TabViewItem Icon="Home" Header="Home">
+                        <TextBlock Padding="16">Home text</TextBlock>
+                    </controls:TabViewItem>
+                    <controls:TabViewItem Icon="Shop" Header="Shop">
+                        <TextBlock Padding="16">Shop text</TextBlock>
+                    </controls:TabViewItem>
+                    <controls:TabViewItem Icon="Emoji" Header="Emoji">
+                        <TextBlock Padding="16">Emoji text</TextBlock>
+                    </controls:TabViewItem>
                 </controls:TabView.Items>
             </controls:TabView>
         </StackPanel>

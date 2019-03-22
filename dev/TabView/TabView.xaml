@@ -6,51 +6,52 @@
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
-            <SolidColorBrush x:Key="TabViewBackground"                             Color="{StaticResource SystemChromeLowColor}" />
-            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected"                             Color="{StaticResource SystemChromeLowColor}" />
-            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPointerOver"                             Color="{StaticResource SystemChromeLowColor}" />
-            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPressed"                             Color="{StaticResource SystemChromeLowColor}" />
-            <StaticResource x:Key="TabViewItemHeaderBackground"                            ResourceKey="SystemControlTransparentBrush" />
-            <StaticResource x:Key="TabViewSelectionIndicatorForeground"                            ResourceKey="SystemControlForegroundAccentBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForeground"                            ResourceKey="SystemControlForegroundBaseMediumBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForegroundPressed"                            ResourceKey="SystemControlForegroundBaseMediumHighBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForegroundSelected"                            ResourceKey="SystemControlForegroundBaseHighBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForegroundPointerOver"                            ResourceKey="SystemControlForegroundBaseMediumHighBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForegroundDisabled"                            ResourceKey="SystemControlDisabledBaseMediumLowBrush" />
-            <StaticResource x:Key="TabViewItemHeaderRevealBorderBrush"                            ResourceKey="SystemControlBackgroundTransparentRevealBorderBrush" />
+            <SolidColorBrush x:Key="TabViewBackground"                       Color="{StaticResource SystemChromeLowColor}" />
+            <StaticResource x:Key="TabViewItemHeaderBackground"              ResourceKey="SystemControlTransparentBrush" />
+            <StaticResource x:Key="TabViewItemHeaderBackgroundSelected"      ResourceKey="SystemControlBackgroundAltHighBrush" />
+            <StaticResource x:Key="TabViewItemHeaderBackgroundPointerOver"   ResourceKey="SystemControlBackgroundAltMediumBrush" />
+            <StaticResource x:Key="TabViewItemHeaderBackgroundPressed"       ResourceKey="SystemControlBackgroundAltHighBrush" />
+            <StaticResource x:Key="TabViewSelectionIndicatorForeground"      ResourceKey="SystemControlForegroundAccentBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForeground"              ResourceKey="SystemControlForegroundBaseMediumBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForegroundPressed"       ResourceKey="SystemControlForegroundBaseMediumHighBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForegroundSelected"      ResourceKey="SystemControlForegroundBaseHighBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForegroundPointerOver"   ResourceKey="SystemControlForegroundBaseMediumHighBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForegroundDisabled"      ResourceKey="SystemControlDisabledBaseMediumLowBrush" />
+            <StaticResource x:Key="TabViewItemHeaderRevealBorderBrush"       ResourceKey="SystemControlBackgroundTransparentRevealBorderBrush" />
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="Dark">
-            <SolidColorBrush x:Key="TabViewBackground"                             Color="{StaticResource SystemChromeLowColor}" />
-            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected"                             Color="{StaticResource SystemChromeLowColor}" />
-            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPointerOver"                             Color="{StaticResource SystemChromeLowColor}" />
-            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPressed"                             Color="{StaticResource SystemChromeLowColor}" />
-            <StaticResource x:Key="TabViewItemHeaderBackground"                            ResourceKey="SystemControlTransparentBrush" />
-            <StaticResource x:Key="TabViewSelectionIndicatorForeground"                            ResourceKey="SystemControlForegroundAccentBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForeground"                            ResourceKey="SystemControlForegroundBaseMediumBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForegroundPressed"                            ResourceKey="SystemControlForegroundBaseMediumHighBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForegroundSelected"                            ResourceKey="SystemControlForegroundBaseHighBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForegroundPointerOver"                            ResourceKey="SystemControlForegroundBaseMediumHighBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForegroundDisabled"                            ResourceKey="SystemControlDisabledBaseMediumLowBrush" />
-            <StaticResource x:Key="TabViewItemHeaderRevealBorderBrush"                            ResourceKey="SystemControlBackgroundTransparentRevealBorderBrush" />
+            <SolidColorBrush x:Key="TabViewBackground"                       Color="{StaticResource SystemChromeLowColor}" />
+            <StaticResource x:Key="TabViewItemHeaderBackground"              ResourceKey="SystemControlTransparentBrush" />
+            <StaticResource x:Key="TabViewItemHeaderBackgroundSelected"      ResourceKey="SystemControlBackgroundAltHighBrush" />
+            <StaticResource x:Key="TabViewItemHeaderBackgroundPointerOver"   ResourceKey="SystemControlBackgroundAltMediumBrush" />
+            <StaticResource x:Key="TabViewItemHeaderBackgroundPressed"       ResourceKey="SystemControlBackgroundAltHighBrush" />
+            <StaticResource x:Key="TabViewSelectionIndicatorForeground"      ResourceKey="SystemControlForegroundAccentBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForeground"              ResourceKey="SystemControlForegroundBaseMediumBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForegroundPressed"       ResourceKey="SystemControlForegroundBaseMediumHighBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForegroundSelected"      ResourceKey="SystemControlForegroundBaseHighBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForegroundPointerOver"   ResourceKey="SystemControlForegroundBaseMediumHighBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForegroundDisabled"      ResourceKey="SystemControlDisabledBaseMediumLowBrush" />
+            <StaticResource x:Key="TabViewItemHeaderRevealBorderBrush"       ResourceKey="SystemControlBackgroundTransparentRevealBorderBrush" />
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="HighContrast">
-            <SolidColorBrush x:Key="TabViewBackground"                             Color="{ThemeResource SystemChromeLowColor}" />
-            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected"                             Color="{ThemeResource SystemColorHighlightColor}" />
-            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPointerOver"                             Color="{ThemeResource SystemColorHighlightColor}" />
-            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPressed"                             Color="{ThemeResource SystemColorHighlightColor}" />
-            <StaticResource x:Key="TabViewItemHeaderBackground"                            ResourceKey="SystemControlTransparentBrush" />
-            <StaticResource x:Key="TabViewSelectionIndicatorForeground"                            ResourceKey="SystemControlForegroundAccentBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForeground"                           ResourceKey="SystemControlForegroundBaseMediumBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForegroundPressed"                            ResourceKey="SystemControlForegroundBaseMediumHighBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForegroundSelected"                            ResourceKey="SystemControlForegroundBaseHighBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForegroundPointerOver"                            ResourceKey="SystemControlForegroundBaseMediumHighBrush" />
-            <StaticResource x:Key="TabViewItemHeaderForegroundDisabled"                            ResourceKey="SystemControlDisabledBaseMediumLowBrush" />
-            <StaticResource x:Key="TabViewItemHeaderRevealBorderBrush"                            ResourceKey="SystemControlBackgroundTransparentRevealBorderBrush" />
+            <SolidColorBrush x:Key="TabViewBackground"                       Color="{StaticResource SystemChromeLowColor}" />
+            <StaticResource x:Key="TabViewItemHeaderBackground"              ResourceKey="SystemControlTransparentBrush" />
+            <StaticResource x:Key="TabViewItemHeaderBackgroundSelected"      ResourceKey="SystemControlBackgroundAltHighBrush" />
+            <StaticResource x:Key="TabViewItemHeaderBackgroundPointerOver"   ResourceKey="SystemControlBackgroundAltMediumBrush" />
+            <StaticResource x:Key="TabViewItemHeaderBackgroundPressed"       ResourceKey="SystemControlBackgroundAltHighBrush" />
+            <StaticResource x:Key="TabViewSelectionIndicatorForeground"      ResourceKey="SystemControlForegroundAccentBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForeground"              ResourceKey="SystemControlForegroundBaseMediumBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForegroundPressed"       ResourceKey="SystemControlForegroundBaseMediumHighBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForegroundSelected"      ResourceKey="SystemControlForegroundBaseHighBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForegroundPointerOver"   ResourceKey="SystemControlForegroundBaseMediumHighBrush" />
+            <StaticResource x:Key="TabViewItemHeaderForegroundDisabled"      ResourceKey="SystemControlDisabledBaseMediumLowBrush" />
+            <StaticResource x:Key="TabViewItemHeaderRevealBorderBrush"       ResourceKey="SystemControlBackgroundTransparentRevealBorderBrush" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
+    <Thickness x:Key="TabViewHeaderPadding">6,6,0,0</Thickness>
     <Thickness x:Key="TabViewItemHeaderMargin">0</Thickness>
     <Thickness x:Key="TabViewItemHeaderIconMargin">0,0,8,0</Thickness>
     <Thickness x:Key="TabViewItemHeaderCloseMargin">8,0,-8,0</Thickness>
@@ -64,6 +65,8 @@
     <!--  Default style for compatibility with WPF migrators.  -->
     <Style TargetType="local:TabView">
         <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Padding" Value="{ThemeResource TabViewHeaderPadding}" />
+
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
@@ -71,9 +74,10 @@
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
+
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate>
+                <ControlTemplate TargetType="local:TabView">
                     <Grid x:Name="TabViewContainer">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -93,7 +97,8 @@
                             TabNavigation="{TemplateBinding TabNavigation}"
                             VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
                             VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
-                            ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+                            ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}"
+                            Background="{ThemeResource TabViewBackground}">
                             <ItemsPresenter x:Name="TabsItemsPresenter"
                                 Padding="{TemplateBinding Padding}" />
                         </ScrollViewer>
@@ -104,6 +109,245 @@
                               BorderBrush="{TemplateBinding BorderBrush}"
                               BorderThickness="{TemplateBinding BorderThickness}" />
                     </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:TabViewItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:TabViewItem">
+
+                    <Grid Padding="{TemplateBinding Padding}">
+                        <Grid.RenderTransform>
+                            <ScaleTransform x:Name="LayoutRootScale" />
+                        </Grid.RenderTransform>
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Target="LayoutRoot.Background" Value="{ThemeResource TabViewItemHeaderBackgroundPointerOver}" />
+                                        <Setter Target="Icon.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundPointerOver}" />
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundPointerOver}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Target="LayoutRoot.Background" Value="{ThemeResource TabViewItemHeaderBackgroundPressed}" />
+                                        <Setter Target="Icon.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundPressed}" />
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundPressed}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Target="LayoutRoot.Background" Value="{ThemeResource TabViewItemHeaderBackgroundSelected}" />
+                                        <Setter Target="Icon.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundSelected}" />
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundSelected}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="PointerOverSelected">
+                                    <VisualState.Setters>
+                                        <Setter Target="LayoutRoot.Background" Value="{ThemeResource TabViewItemHeaderBackgroundSelected}" />
+                                        <Setter Target="Icon.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundPointerOver}" />
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundPointerOver}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState x:Name="PressedSelected">
+                                    <VisualState.Setters>
+                                        <Setter Target="LayoutRoot.Background" Value="{ThemeResource TabViewItemHeaderBackgroundSelected}" />
+                                        <Setter Target="Icon.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundPressed}" />
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundPressed}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+
+                            <VisualStateGroup x:Name="DisabledStates">
+                                <VisualState x:Name="Enabled" />
+
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Target="Icon.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundDisabled}" />
+                                        <Setter Target="ContentPresenter.Foreground" Value="{ThemeResource TabViewItemHeaderForegroundDisabled}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+
+                            <VisualStateGroup x:Name="DataVirtualizationStates">
+                                <VisualState x:Name="DataAvailable" />
+
+                                <VisualState x:Name="DataPlaceholder" />
+                            </VisualStateGroup>
+
+                            <VisualStateGroup x:Name="ReorderHintStates">
+                                <VisualState x:Name="NoReorderHint" />
+
+                                <VisualState x:Name="BottomReorderHint">
+                                    <Storyboard>
+                                        <DragOverThemeAnimation Direction="Bottom"
+                                                    ToOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                                    TargetName="LayoutRoot" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="TopReorderHint">
+                                    <Storyboard>
+                                        <DragOverThemeAnimation Direction="Top"
+                                                    ToOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                                    TargetName="LayoutRoot" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="RightReorderHint">
+                                    <Storyboard>
+                                        <DragOverThemeAnimation Direction="Right"
+                                                    ToOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                                    TargetName="LayoutRoot" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="LeftReorderHint">
+                                    <Storyboard>
+                                        <DragOverThemeAnimation Direction="Left"
+                                                    ToOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                                    TargetName="LayoutRoot" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:0.2"
+                                          To="NoReorderHint" />
+                                </VisualStateGroup.Transitions>
+                            </VisualStateGroup>
+
+                            <VisualStateGroup x:Name="DragStates">
+                                <VisualState x:Name="NotDragging" />
+
+                                <VisualState x:Name="Dragging">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="LayoutRoot"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="{ThemeResource ListViewItemDragThemeOpacity}"
+                                             Duration="0" />
+                                        <DragItemThemeAnimation TargetName="LayoutRoot" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="DraggingTarget" />
+
+                                <VisualState x:Name="MultipleDraggingPrimary" />
+
+                                <VisualState x:Name="MultipleDraggingSecondary" />
+
+                                <VisualState x:Name="DraggedPlaceholder" />
+
+                                <VisualState x:Name="Reordering">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="LayoutRoot"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="{ThemeResource ListViewItemReorderThemeOpacity}"
+                                             Duration="0:0:0.240" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="ReorderingTarget">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="LayoutRoot"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="{ThemeResource ListViewItemReorderTargetThemeOpacity}"
+                                             Duration="0:0:0.240" />
+                                        <DoubleAnimation Storyboard.TargetName="LayoutRootScale"
+                                             Storyboard.TargetProperty="ScaleX"
+                                             To="{ThemeResource ListViewItemReorderTargetThemeScale}"
+                                             Duration="0:0:0.240" />
+                                        <DoubleAnimation Storyboard.TargetName="LayoutRootScale"
+                                             Storyboard.TargetProperty="ScaleY"
+                                             To="{ThemeResource ListViewItemReorderTargetThemeScale}"
+                                             Duration="0:0:0.240" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="MultipleReorderingPrimary" />
+
+                                <VisualState x:Name="ReorderedPlaceholder">
+                                    <Storyboard>
+                                        <FadeOutThemeAnimation TargetName="LayoutRoot" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="DragOver">
+                                    <Storyboard>
+                                        <DropTargetItemThemeAnimation TargetName="LayoutRoot" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:0.2" To="NotDragging" />
+                                </VisualStateGroup.Transitions>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid x:Name="LayoutRoot"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Control.IsTemplateFocusTarget="True"
+                            Padding="12,4,12,6"
+                            CornerRadius="4,4,0,0"
+                            FocusVisualMargin="{TemplateBinding FocusVisualMargin}">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Viewbox x:Name="IconBox"
+                                MaxWidth="{ThemeResource TabViewItemHeaderIconSize}"
+                                MaxHeight="{ThemeResource TabViewItemHeaderIconSize}"
+                                Margin="{ThemeResource TabViewItemHeaderIconMargin}">
+                                <ContentPresenter x:Name="Icon"
+                                    Content="{TemplateBinding Icon}"
+                                    Foreground="{TemplateBinding Foreground}" />
+                            </Viewbox>
+
+                            <ContentPresenter x:Name="ContentPresenter"
+                                Grid.Column="1"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Header}"
+                                ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                ContentTransitions="{TemplateBinding ContentTransitions}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                OpticalMarginAlignment="TrimSideBearings" />
+
+                            <!--  Use grid to toggle visibility based on IsClosable property and inner border for hover animations.  -->
+                            <!--<Border x:Name="CloseButtonContainer"
+                            Grid.Column="2"
+                            Width="{Binding (ex:FrameworkElementExtensions.Ancestor).IsCloseButtonOverlay, Converter={StaticResource CloseCollapsingSizeConverter}, ElementName=LayoutRoot}"
+                            HorizontalAlignment="Right"
+                            Visibility="{Binding IsClosable, Converter={StaticResource BoolToVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}">
+                                <Border x:Name="CloseButtonBorder"
+                                Width="{StaticResource TabViewItemHeaderCloseWidth}"
+                                Margin="{ThemeResource TabViewItemHeaderCloseMargin}"
+                                Background="{TemplateBinding Background}"
+                                Visibility="Collapsed">
+                                    <Button x:Name="CloseButton"
+                                    x:Uid="/Microsoft.Toolkit.Uwp.UI.Controls/Resources/WindowsCommunityToolkit_TabView_CloseButton"
+                                    Style="{StaticResource TabViewItemCloseButtonStyle}">
+                                        &#xE711;
+                                    </Button>
+                                </Border>
+                            </Border>-->
+                        </Grid>
+                    </Grid>
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
