@@ -87,7 +87,7 @@ void SnapPointWrapper<T>::Combine(SnapPointWrapper<T>* snapPointWrapper)
     winrt::SnapPointBase winrtSnapPoint = safe_cast<winrt::SnapPointBase>(m_snapPoint);
     SnapPointBase* snapPoint = winrt::get_self<SnapPointBase>(winrtSnapPoint);
 
-    snapPoint->Combine(snapPointWrapper->SnapPoint(), m_combinationCount);
+    snapPoint->Combine(m_combinationCount, snapPointWrapper->SnapPoint());
 }
 
 template<typename T>
@@ -96,7 +96,16 @@ double SnapPointWrapper<T>::Evaluate(double value) const
     winrt::SnapPointBase winrtSnapPoint = safe_cast<winrt::SnapPointBase>(m_snapPoint);
     SnapPointBase* snapPoint = winrt::get_self<SnapPointBase>(winrtSnapPoint);
 
-    return snapPoint->Evaluate(value, m_actualApplicableZone);
+    return snapPoint->Evaluate(m_actualApplicableZone, value);
+}
+
+template<typename T>
+bool SnapPointWrapper<T>::SnapsAt(double value) const
+{
+    winrt::SnapPointBase winrtSnapPoint = safe_cast<winrt::SnapPointBase>(m_snapPoint);
+    SnapPointBase* snapPoint = winrt::get_self<SnapPointBase>(winrtSnapPoint);
+
+    return snapPoint->SnapsAt(m_actualApplicableZone, value);
 }
 
 template SnapPointWrapper<winrt::ScrollSnapPointBase>::SnapPointWrapper(winrt::ScrollSnapPointBase const& snapPoint);
@@ -146,3 +155,5 @@ template void SnapPointWrapper<winrt::ZoomSnapPointBase>::Combine(SnapPointWrapp
 
 template double SnapPointWrapper<winrt::ScrollSnapPointBase>::Evaluate(double value) const;
 template double SnapPointWrapper<winrt::ZoomSnapPointBase>::Evaluate(double value) const;
+
+template bool SnapPointWrapper<winrt::SnapPointBase>::SnapsAt(double value) const;

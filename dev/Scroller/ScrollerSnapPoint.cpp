@@ -83,6 +83,21 @@ void SnapPointBase::VisualizationColor(winrt::Color color)
 }
 #endif // _DEBUG
 
+bool SnapPointBase::SnapsAt(
+    std::tuple<double, double> actualApplicableZone,
+    double value) const
+{
+    if (std::get<0>(actualApplicableZone) <= value &&
+        std::get<1>(actualApplicableZone) >= value)
+    {
+        double snappedValue = Evaluate(actualApplicableZone, static_cast<float>(value));
+
+        return std::abs(value - snappedValue) < s_equalityEpsilon;
+    }
+
+    return false;
+}
+
 /////////////////////////////////////////////////////////////////////
 /////////////////      Scroll Snap Points     ///////////////////////
 /////////////////////////////////////////////////////////////////////
@@ -326,8 +341,8 @@ double ScrollSnapPoint::Influence(double edgeOfMidpoint) const
 }
 
 void ScrollSnapPoint::Combine(
-    winrt::SnapPointBase const& snapPoint,
-    int& combinationCount) const
+    int& combinationCount,
+    winrt::SnapPointBase const& snapPoint) const
 {
     auto snapPointAsIrregular = snapPoint.try_as<winrt::ScrollSnapPoint>();
     if (snapPointAsIrregular)
@@ -347,7 +362,7 @@ void ScrollSnapPoint::Combine(
     }
 }
 
-double ScrollSnapPoint::Evaluate(double value, std::tuple<double, double> actualApplicableZone) const
+double ScrollSnapPoint::Evaluate(std::tuple<double, double> actualApplicableZone, double value) const
 {
     if (value >= std::get<0>(actualApplicableZone) && value <= std::get<1>(actualApplicableZone))
     {
@@ -672,15 +687,15 @@ double RepeatedScrollSnapPoint::Influence(double edgeOfMidpoint) const
 }
 
 void RepeatedScrollSnapPoint::Combine(
-    winrt::SnapPointBase const& snapPoint,
-    int& combinationCount) const
+    int& combinationCount,
+    winrt::SnapPointBase const& snapPoint) const
 {
     // Snap points are not allowed within the bounds (Start thru End) of repeated snap points
     // TODO: Provide custom error message
     throw winrt::hresult_error(E_INVALIDARG);
 }
 
-double RepeatedScrollSnapPoint::Evaluate(double value, std::tuple<double, double> actualApplicableZone) const
+double RepeatedScrollSnapPoint::Evaluate(std::tuple<double, double> actualApplicableZone, double value) const
 {
     if (value >= ActualStart() && value <= ActualEnd())
     {
@@ -913,8 +928,8 @@ double ZoomSnapPoint::Influence(double edgeOfMidpoint) const
 }
 
 void ZoomSnapPoint::Combine(
-    winrt::SnapPointBase const& snapPoint,
-    int& combinationCount) const
+    int& combinationCount,
+    winrt::SnapPointBase const& snapPoint) const
 {
     auto snapPointAsIrregular = snapPoint.try_as<winrt::ZoomSnapPoint>();
     if (snapPointAsIrregular)
@@ -934,7 +949,7 @@ void ZoomSnapPoint::Combine(
     }
 }
 
-double ZoomSnapPoint::Evaluate(double value, std::tuple<double, double> actualApplicableZone) const
+double ZoomSnapPoint::Evaluate(std::tuple<double, double> actualApplicableZone, double value) const
 {
     if (value >= std::get<0>(actualApplicableZone) && value <= std::get<1>(actualApplicableZone))
     {
@@ -1200,15 +1215,15 @@ double RepeatedZoomSnapPoint::Influence(double edgeOfMidpoint) const
 }
 
 void RepeatedZoomSnapPoint::Combine(
-    winrt::SnapPointBase const& snapPoint,
-    int& combinationCount) const
+    int& combinationCount,
+    winrt::SnapPointBase const& snapPoint) const
 {
     // Snap points are not allowed within the bounds (Start thru End) of repeated snap points
     // TODO: Provide custom error message
     throw winrt::hresult_error(E_INVALIDARG);
 }
 
-double RepeatedZoomSnapPoint::Evaluate(double value, std::tuple<double, double> actualApplicableZone) const
+double RepeatedZoomSnapPoint::Evaluate(std::tuple<double, double> actualApplicableZone, double value) const
 {
     if (value >= m_start && value <= m_end)
     {

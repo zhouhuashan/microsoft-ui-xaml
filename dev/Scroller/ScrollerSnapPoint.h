@@ -57,9 +57,9 @@ public:
         SnapPointBase* nextSnapPoint) = 0;
     virtual double Influence(double edgeOfMidpoint) const = 0;
     virtual void Combine(
-        winrt::SnapPointBase const& snapPoint,
-        int& combinationCount) const = 0;
-    virtual double Evaluate(double value, std::tuple<double, double> actualApplicableZone) const = 0;
+        int& combinationCount,
+        winrt::SnapPointBase const& snapPoint) const = 0;
+    virtual double Evaluate(std::tuple<double, double> actualApplicableZone, double value) const = 0;
 
     // Returns True when this snap point is sensitive to the viewport size and is interested in future updates.
     virtual bool OnUpdateViewport(double newViewport) = 0;
@@ -68,6 +68,10 @@ public:
     winrt::Color VisualizationColor();
     void VisualizationColor(winrt::Color color);
 #endif // _DEBUG
+
+    bool SnapsAt(
+        std::tuple<double, double> actualApplicableZone,
+        double value) const;
 
 protected:
     // Needed as work around for Modern Idl inheritance bug
@@ -138,9 +142,9 @@ public:
         SnapPointBase* nextSnapPoint);
     double Influence(double edgeOfMidpoint) const;
     void Combine(
-        winrt::SnapPointBase const& snapPoint,
-        int& combinationCount) const;
-    double Evaluate(double value, std::tuple<double, double> actualApplicableZone) const;
+        int& combinationCount,
+        winrt::SnapPointBase const& snapPoint) const;
+    double Evaluate(std::tuple<double, double> actualApplicableZone, double value) const;
 
 private:
     double ActualValue() const;
@@ -197,9 +201,9 @@ public:
         SnapPointBase* nextSnapPoint);
     double Influence(double edgeOfMidpoint) const;
     void Combine(
-        winrt::SnapPointBase const& snapPoint,
-        int& combinationCount) const;
-    double Evaluate(double value, std::tuple<double, double> actualApplicableZone) const;
+        int& combinationCount,
+        winrt::SnapPointBase const& snapPoint) const;
+    double Evaluate(std::tuple<double, double> actualApplicableZone, double value) const;
 
 private:
     double ActualOffset() const;
@@ -270,9 +274,9 @@ public:
         SnapPointBase* nextSnapPoint);
     double Influence(double edgeOfMidpoint) const;
     void Combine(
-        winrt::SnapPointBase const& snapPoint,
-        int& combinationCount) const;
-    double Evaluate(double value, std::tuple<double, double> actualApplicableZone) const;
+        int& combinationCount,
+        winrt::SnapPointBase const& snapPoint) const;
+    double Evaluate(std::tuple<double, double> actualApplicableZone, double value) const;
 
 private:
     double DetermineMinActualApplicableZone(
@@ -326,9 +330,9 @@ public:
         SnapPointBase* nextSnapPoint);
     double Influence(double edgeOfMidpoint) const;
     void Combine(
-        winrt::SnapPointBase const& snapPoint,
-        int& combinationCount) const;
-    double Evaluate(double value, std::tuple<double, double> actualApplicableZone) const;
+        int& combinationCount,
+        winrt::SnapPointBase const& snapPoint) const;
+    double Evaluate(std::tuple<double, double> actualApplicableZone, double value) const;
 
 private:
     double DetermineFirstRepeatedSnapPointValue() const;

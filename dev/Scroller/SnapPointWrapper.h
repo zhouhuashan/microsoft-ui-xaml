@@ -34,6 +34,7 @@ public:
         SnapPointBase* nextSnapPoint);
     void Combine(SnapPointWrapper<T>* snapPointWrapper);
     double Evaluate(double value) const;
+    bool SnapsAt(double value) const;
 
 private:
     T m_snapPoint;
