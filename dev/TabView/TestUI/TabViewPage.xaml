@@ -14,15 +14,19 @@
         <StackPanel Orientation="Vertical">
             <controls:TabView>
                 <controls:TabView.Items>
+
                     <controls:TabViewItem Icon="Home" Header="Home">
                         <TextBlock Padding="16">Home text</TextBlock>
                     </controls:TabViewItem>
+
                     <controls:TabViewItem Icon="Shop" Header="Shop">
                         <TextBlock Padding="16">Shop text</TextBlock>
                     </controls:TabViewItem>
+
                     <controls:TabViewItem Icon="Emoji" Header="Emoji">
                         <TextBlock Padding="16">Emoji text</TextBlock>
                     </controls:TabViewItem>
+
                 </controls:TabView.Items>
             </controls:TabView>
         </StackPanel>

@@ -52,7 +52,9 @@
     </ResourceDictionary.ThemeDictionaries>
 
     <Thickness x:Key="TabViewHeaderPadding">6,6,0,0</Thickness>
+    <CornerRadius x:Key="TabViewItemCornerRadius">4,4,0,0</CornerRadius>
     <Thickness x:Key="TabViewItemHeaderMargin">0</Thickness>
+    <Thickness x:Key="TabViewItemHeaderPadding">12,4,12,6</Thickness>
     <Thickness x:Key="TabViewItemHeaderIconMargin">0,0,8,0</Thickness>
     <Thickness x:Key="TabViewItemHeaderCloseMargin">8,0,-8,0</Thickness>
     <Thickness x:Key="TabViewItemHeaderBorderThickness">0,1,1,0</Thickness>
@@ -299,8 +301,8 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Control.IsTemplateFocusTarget="True"
-                            Padding="12,4,12,6"
-                            CornerRadius="4,4,0,0"
+                            Padding="{ThemeResource TabViewItemHeaderPadding}"
+                            CornerRadius="{ThemeResource TabViewItemCornerRadius}"
                             FocusVisualMargin="{TemplateBinding FocusVisualMargin}">
 
                             <Grid.ColumnDefinitions>
