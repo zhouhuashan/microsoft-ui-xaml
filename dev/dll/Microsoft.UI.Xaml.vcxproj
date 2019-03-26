@@ -558,7 +558,30 @@
       <BatchMergeXaml RS1Pages="@(RS1StylePage)" RS2Pages="@(RS2StylePage)"  RS3Pages="@(RS3StylePage)" 
                       RS4Pages="@(RS4StylePage)" RS5Pages="@(RS5StylePage)"  N19H1Pages="@(NineteenH1StylePage)" 
                       PostfixForGeneratedFile="generic" OutputDirectory="$(OutDir)" />
-       <Copy SourceFiles="$(OutDir)rs1_generic.xaml" DestinationFiles="$(OutDir)Generic.xaml" />
+      <Copy SourceFiles="$(OutDir)rs1_generic.xaml" DestinationFiles="$(OutDir)Generic.xaml" />
+
+      <!-- NB: We have to use CreateProperty here instead of PropertyGroup.	
+      PropertyGroup values are always evaluated even when their enclosing target is skipped,	
+      whereas CreateProperty has the TaskParameter ValueSetByTask that can be used	
+      to only set a property if the target actually runs. -->	
+      <CreateProperty Value="True">	
+        <Output TaskParameter="ValueSetByTask" PropertyName="GenericXamlFileNeedsCompilation" />	
+      </CreateProperty>	
+      <ItemGroup>	
+        <FileReads Include="@(RS1StylePage)" />
+        <FileReads Include="@(RS2StylePage)" />
+        <FileReads Include="@(RS3StylePage)" />
+        <FileReads Include="@(RS4StylePage)" />
+        <FileReads Include="@(RS5StylePage)" />
+        <FileReads Include="@(NineteenH1StylePage)" />
+        <FileWrites Include="$(OutDir)rs1_generic.xaml" />
+        <FileWrites Include="$(OutDir)rs2_generic.xaml" />
+        <FileWrites Include="$(OutDir)rs3_generic.xaml" />
+        <FileWrites Include="$(OutDir)rs4_generic.xaml" />
+        <FileWrites Include="$(OutDir)rs5_generic.xaml" />
+        <FileWrites Include="$(OutDir)19h1_generic.xaml" />
+        <FileWrites Include="$(OutDir)Generic.xaml" />
+      </ItemGroup>
   </Target>
   <Target Name="GenerateThemeResourceFile" DependsOnTargets="CategorizeSharedPages" BeforeTargets="$(GenerateXamlFileBeforeTargets)" Condition="$(BuildingWithBuildExe) != 'true'" 
     Inputs="@(RS1ThemeResourcePage);@(RS2ThemeResourcePage);@(RS3ThemeResourcePage);@(RS4ThemeResourcePage);@(RS5ThemeResourcePage);@(NineteenH1ThemeResourcePage)" 
@@ -567,6 +590,28 @@
       <BatchMergeXaml RS1Pages="@(RS1ThemeResourcePage)" RS2Pages="@(RS2ThemeResourcePage)"  RS3Pages="@(RS3ThemeResourcePage)" 
                       RS4Pages="@(RS4ThemeResourcePage)" RS5Pages="@(RS5ThemeResourcePage)"  N19H1Pages="@(NineteenH1ThemeResourcePage)" 
                       PostfixForGeneratedFile="themeresources" OutputDirectory="$(OutDir)" />
+
+     <!-- NB: We have to use CreateProperty here instead of PropertyGroup.	
+      PropertyGroup values are always evaluated even when their enclosing target is skipped,	
+      whereas CreateProperty has the TaskParameter ValueSetByTask that can be used	
+      to only set a property if the target actually runs. -->	
+      <CreateProperty Value="True">	
+        <Output TaskParameter="ValueSetByTask" PropertyName="ThemeResourceFileNeedsCompilation" />	
+      </CreateProperty>	
+      <ItemGroup>	
+        <FileReads Include="@(RS1ThemeResourcePage)" />
+        <FileReads Include="@(RS2ThemeResourcePage)" />
+        <FileReads Include="@(RS3ThemeResourcePage)" />
+        <FileReads Include="@(RS4ThemeResourcePage)" />
+        <FileReads Include="@(RS5ThemeResourcePage)" />
+        <FileReads Include="@(NineteenH1ThemeResourcePage)" />
+        <FileWrites Include="$(OutDir)rs1_themeresources.xaml" />
+        <FileWrites Include="$(OutDir)rs2_themeresources.xaml" />
+        <FileWrites Include="$(OutDir)rs3_themeresources.xaml" />
+        <FileWrites Include="$(OutDir)rs4_themeresources.xaml" />
+        <FileWrites Include="$(OutDir)rs5_themeresources.xaml" />
+        <FileWrites Include="$(OutDir)19h1_themeresources.xaml" />
+      </ItemGroup>
   </Target>
   <Target Name="GenerateWUXCGenericXamlFile" DependsOnTargets="CategorizeSharedPages" Condition="$(BuildingWithBuildExe) == 'true'">
     <PropertyGroup>
@@ -684,16 +729,16 @@
       <XamlReferencesToCompile Condition="'$(Language)'!='C++'" Include="@(ReferencePath)" />
     </ItemGroup>
     <ItemGroup>
-      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs2_generic' And ('$(RS2GenericXamlFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs2_generic.xbf'))" />
-      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs3_generic' And ('$(RS3GenericXamlFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs3_generic.xbf'))" />
-      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs4_generic' And ('$(RS4GenericXamlFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs4_generic.xbf'))" />
-      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs5_generic' And ('$(RS5GenericXamlFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs5_generic.xbf'))" />
-      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == '19h1_generic' And ('$(NineteenH1GenericXamlFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\19h1_generic.xbf'))" />
-      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs2_themeresources' And ('$(RS2ThemeResourceFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs2_themeresources.xbf'))" />
-      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs3_themeresources' And ('$(RS3ThemeResourceFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs3_themeresources.xbf'))" />
-      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs4_themeresources' And ('$(RS4ThemeResourceFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs4_themeresources.xbf'))" />
-      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs5_themeresources' And ('$(RS5ThemeResourceFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs5_themeresources.xbf'))" />
-      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == '19h1_themeresources' And ('$(NineteenH1ThemeResourceFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\19h1_themeresources.xbf'))" />
+      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs2_generic' And ('$(GenericXamlFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs2_generic.xbf'))" />
+      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs3_generic' And ('$(GenericXamlFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs3_generic.xbf'))" />
+      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs4_generic' And ('$(GenericXamlFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs4_generic.xbf'))" />
+      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs5_generic' And ('$(GenericXamlFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs5_generic.xbf'))" />
+      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == '19h1_generic' And ('$(GenericXamlFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\19h1_generic.xbf'))" />
+      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs2_themeresources' And ('$(ThemeResourceFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs2_themeresources.xbf'))" />
+      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs3_themeresources' And ('$(ThemeResourceFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs3_themeresources.xbf'))" />
+      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs4_themeresources' And ('$(ThemeResourceFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs4_themeresources.xbf'))" />
+      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == 'rs5_themeresources' And ('$(ThemeResourceFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\rs5_themeresources.xbf'))" />
+      <PageToBeCompiled Include="@(PageRequiringCustomCompilation)" Condition="'%(Filename)' == '19h1_themeresources' And ('$(ThemeResourceFileNeedsCompilation)' == 'True' Or !Exists('$(IntDir)\Generated Files\Themes\19h1_themeresources.xbf'))" />
     </ItemGroup>
     <Message Condition="'@(PageToBeCompiled)' != ''" Text="CustomCompile with min version %(PageToBeCompiled.MinSDKVersionRequired) for Pages: @(PageToBeCompiled)" />
     <CompileXaml Condition="'@(PageToBeCompiled)' != ''" LanguageSourceExtension="$(DefaultLanguageSourceExtension)" Language="$(Language)" RootNamespace="$(RootNamespace)" XamlPages="@(PageToBeCompiled)" XamlApplications="@(ApplicationDefinition)" SdkXamlPages="@(SdkXamlItems)" PriIndexName="$(PriIndexName)" ProjectName="$(XamlProjectName)" IsPass1="False" DisableXbfGeneration="False" CodeGenerationControlFlags="$(XamlCodeGenerationControlFlags)" ClIncludeFiles="@(ClInclude)" CIncludeDirectories="$(XamlCppIncludeDirectories)" LocalAssembly="$(LocalAssembly)" ProjectPath="$(MSBuildProjectFullPath)" OutputPath="$(XamlGeneratedOutputPath)" OutputType="$(OutputType)" ReferenceAssemblyPaths="@(ReferenceAssemblyPaths)" ReferenceAssemblies="@(XamlReferencesToCompile)" ForceSharedStateShutdown="False" CompileMode="RealBuildPass2" XAMLFingerprint="$(XAMLFingerprint)" FingerprintIgnorePaths="$(XAMLFingerprintIgnorePaths)" VCInstallDir="$(VCInstallDir)" WindowsSdkPath="$(WindowsSdkPath)" GenXbf32Path="$(GenXbfPath)" SavedStateFile="$(XamlSavedStateFilePath)" RootsLog="$(XamlRootsLog)" SuppressWarnings="$(SuppressXamlWarnings)" XamlResourceMapName="$(XamlResourceMapName)" XamlComponentResourceLocation="$(XamlComponentResourceLocation)" TargetPlatformMinVersion="%(PageToBeCompiled.MinSDKVersionRequired)" PlatformXmlDir="$(PlatformXmlDir)">
