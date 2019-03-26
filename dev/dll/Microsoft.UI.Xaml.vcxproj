@@ -566,22 +566,7 @@
       to only set a property if the target actually runs. -->	
       <CreateProperty Value="True">	
         <Output TaskParameter="ValueSetByTask" PropertyName="GenericXamlFileNeedsCompilation" />	
-      </CreateProperty>	
-      <ItemGroup>	
-        <FileReads Include="@(RS1StylePage)" />
-        <FileReads Include="@(RS2StylePage)" />
-        <FileReads Include="@(RS3StylePage)" />
-        <FileReads Include="@(RS4StylePage)" />
-        <FileReads Include="@(RS5StylePage)" />
-        <FileReads Include="@(NineteenH1StylePage)" />
-        <FileWrites Include="$(OutDir)rs1_generic.xaml" />
-        <FileWrites Include="$(OutDir)rs2_generic.xaml" />
-        <FileWrites Include="$(OutDir)rs3_generic.xaml" />
-        <FileWrites Include="$(OutDir)rs4_generic.xaml" />
-        <FileWrites Include="$(OutDir)rs5_generic.xaml" />
-        <FileWrites Include="$(OutDir)19h1_generic.xaml" />
-        <FileWrites Include="$(OutDir)Generic.xaml" />
-      </ItemGroup>
+      </CreateProperty>	  
   </Target>
   <Target Name="GenerateThemeResourceFile" DependsOnTargets="CategorizeSharedPages" BeforeTargets="$(GenerateXamlFileBeforeTargets)" Condition="$(BuildingWithBuildExe) != 'true'" 
     Inputs="@(RS1ThemeResourcePage);@(RS2ThemeResourcePage);@(RS3ThemeResourcePage);@(RS4ThemeResourcePage);@(RS5ThemeResourcePage);@(NineteenH1ThemeResourcePage)" 
@@ -598,20 +583,6 @@
       <CreateProperty Value="True">	
         <Output TaskParameter="ValueSetByTask" PropertyName="ThemeResourceFileNeedsCompilation" />	
       </CreateProperty>	
-      <ItemGroup>	
-        <FileReads Include="@(RS1ThemeResourcePage)" />
-        <FileReads Include="@(RS2ThemeResourcePage)" />
-        <FileReads Include="@(RS3ThemeResourcePage)" />
-        <FileReads Include="@(RS4ThemeResourcePage)" />
-        <FileReads Include="@(RS5ThemeResourcePage)" />
-        <FileReads Include="@(NineteenH1ThemeResourcePage)" />
-        <FileWrites Include="$(OutDir)rs1_themeresources.xaml" />
-        <FileWrites Include="$(OutDir)rs2_themeresources.xaml" />
-        <FileWrites Include="$(OutDir)rs3_themeresources.xaml" />
-        <FileWrites Include="$(OutDir)rs4_themeresources.xaml" />
-        <FileWrites Include="$(OutDir)rs5_themeresources.xaml" />
-        <FileWrites Include="$(OutDir)19h1_themeresources.xaml" />
-      </ItemGroup>
   </Target>
   <Target Name="GenerateWUXCGenericXamlFile" DependsOnTargets="CategorizeSharedPages" Condition="$(BuildingWithBuildExe) == 'true'">
     <PropertyGroup>
